@@ -87,6 +87,7 @@ function loadObjectOfCharSelectScene()
     continousGlow["FCT"] = 0
     continousGlow["LCT"] = 0
     continousGlow["linerDelta"] = {0,0,0,0}
+    continousGlow["layer"] = {0,1,2}
 
     secondRing = {0,0,1,0,0}
     secondRing["FCT"] = 0
@@ -370,25 +371,32 @@ function loadAnimOfCharSelectScene()
     glowAlphaPointAnim["loopType"] = "const"
 
     continousGlowFlashInAnim = {}
-    continousGlowFlashInAnim[0] = {0.02,-0.01,-0.01,-0.032}
-    continousGlowFlashInAnim[5] = {0.02,-0.01,-0.01,-0.018}
-    continousGlowFlashInAnim[10] = {0.02,-0.01,-0.01,-0.011}
-    continousGlowFlashInAnim[20] = {0.02,-0.01,-0.01,-0.008}
-    continousGlowFlashInAnim[35] = {0.02,-0.01,-0.01,-0.006}
-    continousGlowFlashInAnim[40] = {0.02,-0.01,-0.01,-0.008}
-    continousGlowFlashInAnim[50] = {0.02,-0.01,-0.01,-0.0035}
-    continousGlowFlashInAnim[70] = {0.02,-0.01,-0.01,-0.001}
-    continousGlowFlashInAnim[100] = {-0.01,0.02,-0.01,-0.0006}
-    continousGlowFlashInAnim[140] = {-0.01,0.02,-0.01,-0.0006}
-    continousGlowFlashInAnim[150] = {-0.01,0.02,-0.01,0}
-    continousGlowFlashInAnim[200] = {-0.01,-0.01,0.02,0}
+    continousGlowFlashInAnim[0] = {0.01,-0.005,-0.005,-0.032/4*3}
+    continousGlowFlashInAnim[0]["layer"] = {1,2,0}
+    continousGlowFlashInAnim[5] = {0.01,-0.005,-0.005,-0.018/4*3}
+    continousGlowFlashInAnim[10] = {0.01,-0.005,-0.005,-0.011/4*3}
+    continousGlowFlashInAnim[20] = {0.01,-0.005,-0.005,-0.008/4*3}
+    continousGlowFlashInAnim[35] = {0.01,-0.005,-0.005,-0.006/4*3}
+    continousGlowFlashInAnim[40] = {0.01,-0.005,-0.005,-0.008/4*3}
+    continousGlowFlashInAnim[50] = {0.01,-0.005,-0.005,-0.0035/4*3}
+    continousGlowFlashInAnim[70] = {0.01,-0.005,-0.005,-0.001/4*3}
+    continousGlowFlashInAnim[100] = {-0.005,0.01,-0.005,-0.0006/4*3}
+    continousGlowFlashInAnim[100]["layer"] = {2,0,1}
+    continousGlowFlashInAnim[140] = {-0.005,0.01,-0.005,-0.0006/4*3}
+    continousGlowFlashInAnim[150] = {-0.005,0.01,-0.005,0}
+    continousGlowFlashInAnim[200] = {-0.005,-0.005,0.01,0}
+    continousGlowFlashInAnim[200]["layer"] = {0,1,2}
+    continousGlowFlashInAnim[250] = {-0.005,-0.005,0.01,0}
     continousGlowFlashInAnim["length"] = 299
     continousGlowFlashInAnim["loopType"] = "const"
 
     continousGlowLoopAnim = {}
-    continousGlowLoopAnim[0] = {0.02,-0.01,-0.01,0}
-    continousGlowLoopAnim[100] = {-0.01,0.02,-0.01,0}
-    continousGlowLoopAnim[200] = {-0.01,-0.01,0.02,0}
+    continousGlowLoopAnim[0] = {0.01,-0.005,-0.005,0}
+    continousGlowLoopAnim[0]["layer"] = {1,2,0}
+    continousGlowLoopAnim[100] = {-0.005,0.01,-0.005,0}
+    continousGlowLoopAnim[100]["layer"] = {2,0,1}
+    continousGlowLoopAnim[200] = {-0.005,-0.005,0.01,0}
+    continousGlowLoopAnim[200]["layer"] = {0,1,2}
     continousGlowLoopAnim["length"] = 299
     continousGlowLoopAnim["loopType"] = "loop"
 

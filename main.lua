@@ -13,6 +13,8 @@ require("objectAndAssetData")
 require("/scenesLogic/dicAndLogoLogic")
 require("/scenesLogic/start/startLogic")
 require("/scenesLogic/charSelect/charSelectLogic")
+require("/scenesLogic/match/matchSceneLogic")
+
 
 require("/scenesLogic/start/O1Config")
 require("/scenesLogic/start/O1Record")

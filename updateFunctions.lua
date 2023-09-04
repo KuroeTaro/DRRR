@@ -19,7 +19,6 @@ end
 function firstSceneLoadFlashInAnim()
     frameAnimator(daboTrig)
     if daboTrig["FCT"] > daboTrig["FA"]["length"] then
-        love.audio.stop()
         love.audio.play(loadingSource)
         loadObjectOfDicAndLogoScene()
         loadAnimOfDicAndLogoScene()

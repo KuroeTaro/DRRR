@@ -2,7 +2,6 @@ function startSceneLoadFlashInAnim()
     loadAssetFunction("loadThread/startSceneThread.lua",loadOrderOfStartScene,51)
     frameAnimator(daboTrig)
     if daboTrig["FCT"] > daboTrig["FA"]["length"] then
-        love.audio.stop()
         love.audio.play(loadingSource)
         currentUpdateBlock = function()
             startSceneLoadAnim()

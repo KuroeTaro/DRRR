@@ -34,7 +34,41 @@ function linerAnimator(object)
         object["LCT"] = 0
     end
 end
+function pointLinerAnimator(object,animation,outerEffect)
+    -- 点位置数据 点的序号（第几个）
+    -- object[PLT] = {0,0,0,0,0}
 
+    -- animation[0] = {0,9}
+    -- animation[9] = {23,12}
+    -- animation[12] = {2,0}
+
+    -- animation["prpty"] = 1
+
+    -- animation["length"] = 12
+
+    -- object["PLD"] = {0,0,0,0,0}
+
+    if object["PLT"][animation["prpty"]] >= animation["length"] and animation["loopType"] == "loop" then
+        object["PLT"][animation["prpty"]] = 0
+    end
+
+    local thisPLT = object["PLT"][animation["prpty"]]
+
+    if animation[thisPLT] ~= nil then 
+        local nextTime = animation[thisPLT][2]
+        local nextValue = animation[nextTime][1]
+        local currentTime = thisPLTa
+        local currentValue = animation[thisPLT][1]
+
+        object["PLD"][animation["prpty"]] = (nextValue - currentValue)/(nextTime - currentTime)
+    end
+
+    local finalDelta = object["PLD"][animation["prpty"]] + outerEffect[animation["prpty"]]
+
+    if object["PLT"][animation["prpty"]] < animation["length"] then
+        object[animation["prpty"]] =  object[animation["prpty"]] + finalDelta
+    end
+end
 function initFrameAnimationWith(object,animation)
     object["FA"] = animation 
     object["FCT"] = 0 
@@ -71,6 +105,9 @@ function glowTransAnimator(object)
     if  object["LA"][object["LCT"]] ~= nil then 
         for i = 1,4 do
             object["linerDelta"][i] = object["LA"][object["LCT"]][i]
+        end
+        if object["LA"][object["LCT"]]["layer"] ~= nil then
+            object["layer"] = object["LA"][object["LCT"]]["layer"]
         end
     end
 

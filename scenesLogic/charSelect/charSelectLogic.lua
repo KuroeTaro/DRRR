@@ -2,7 +2,6 @@ function charSelectSceneLoadFlashInAnim()
     loadAssetFunction("loadThread/charSelectSceneThread.lua",loadOrderOfCharSelectScene,2)
     frameAnimator(daboTrig)
     if daboTrig["FCT"] > daboTrig["FA"]["length"] then
-        love.audio.stop()
         love.audio.play(loadingSource)
         currentUpdateBlock = function()
             charSelectSceneLoadAnim()
@@ -63,7 +62,6 @@ function charSelectSceneLoadFlashOutAnim()
 end
 function charSelectSceneFirstAnim()
     sceneCounter =  sceneCounter + 1
-    print(continousGlow[4][4])
     local switch = 
     {
         [0] = function()
@@ -443,7 +441,6 @@ function charSelectInterectFunction()
             timerInCharSelect(SSV,timeNumber1,timeNumber2)
             glowTransAnimator(continousGlow)
             initLinerAnimationWithOut(continousGlow,continousGlowLoopAnim)
-            continousGlow[4][4] = 0.5
 
             O1CharChangeFunction(1)
             O1CharChangeFunction(2)
@@ -524,16 +521,25 @@ function charSelectSceneFlashOut()
             iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
         end,
         [90] = function()
+            loadOnce = false
+            loadObjectOfLoadScene()
             daboTrig[4] = 1
             initFrameAnimationWith(daboTrig,daboTrigAnim1)
             love.audio.play(startLoadSource)
             currentUpdateBlock = function()
-                
+                matchSelectSceneLoadFlashInAnim()
             end
             currentDrawBlock = function()
                 loadSceneDraw()
             end
             unloadOrderOfCharSelectScene()
+    
+            threadOnce = false
+            loadOnce = false 
+            unloadOnce = false
+            loadOrder = 0
+    
+            assetData = nil
         end
     }
     local thisFunction = switch[sceneCounter]
