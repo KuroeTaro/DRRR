@@ -43,7 +43,6 @@ function charSelectSceneLoadFlashOutAnim()
 
         threadOnce = false
         loadOnce = false 
-        unloadOnce = false
         loadOrder = 0
 
         assetData = nil
@@ -536,7 +535,6 @@ function charSelectSceneFlashOut()
     
             threadOnce = false
             loadOnce = false 
-            unloadOnce = false
             loadOrder = 0
     
             assetData = nil

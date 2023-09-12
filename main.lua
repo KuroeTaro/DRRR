@@ -73,7 +73,6 @@ end
 function love.load()
     threadOnce = false
     loadOnce = false 
-    unloadOnce = false
     loadOrder = 0
     assetData = nil
     gft = 0

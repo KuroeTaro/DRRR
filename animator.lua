@@ -34,19 +34,20 @@ function linerAnimator(object)
         object["LCT"] = 0
     end
 end
+
 function pointLinerAnimator(object,animation,outerEffect)
-    -- 点位置数据 点的序号（第几个）
-    -- object[PLT] = {0,0,0,0,0}
-
-    -- animation[0] = {0,9}
-    -- animation[9] = {23,12}
-    -- animation[12] = {2,0}
-
-    -- animation["prpty"] = 1
-
-    -- animation["length"] = 12
-
-    -- object["PLD"] = {0,0,0,0,0}
+    -- defultObject = {0,0,0,0,0}
+    -- defultObject["PLT"] = {0,0,0,0,0}
+    -- defultObject["PLD"] = {0,0,0,0,0}
+    
+    -- defultAnimation = {}
+    ---- defultAnimation[x][1]表示当前点位置，defultAnimation[x][2]表示下一个点所在时间。
+    -- defultAnimation[0] = {0,9}
+    -- defultAnimation[9] = {23,12}
+    -- defultAnimation[12] = {2,0}
+    -- defultAnimation["prpty"] = 1
+    -- defultAnimation["length"] = 12
+    -- defultAnimation["loopType"] = "loop"
 
     if object["PLT"][animation["prpty"]] >= animation["length"] and animation["loopType"] == "loop" then
         object["PLT"][animation["prpty"]] = 0
@@ -57,18 +58,21 @@ function pointLinerAnimator(object,animation,outerEffect)
     if animation[thisPLT] ~= nil then 
         local nextTime = animation[thisPLT][2]
         local nextValue = animation[nextTime][1]
-        local currentTime = thisPLTa
+        local currentTime = thisPLT
         local currentValue = animation[thisPLT][1]
 
         object["PLD"][animation["prpty"]] = (nextValue - currentValue)/(nextTime - currentTime)
     end
 
-    local finalDelta = object["PLD"][animation["prpty"]] + outerEffect[animation["prpty"]]
+    -- local finalDelta = object["PLD"][animation["prpty"]] + outerEffect[animation["prpty"]]
+    local finalDelta = object["PLD"][animation["prpty"]]
 
     if object["PLT"][animation["prpty"]] < animation["length"] then
         object[animation["prpty"]] =  object[animation["prpty"]] + finalDelta
+		object["PLT"][animation["prpty"]] = object["PLT"][animation["prpty"]] + 1
     end
-end
+end 
+
 function initFrameAnimationWith(object,animation)
     object["FA"] = animation 
     object["FCT"] = 0 
