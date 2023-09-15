@@ -132,16 +132,14 @@ function inputStateMachine(commandState,currentCommand)
             ["Releasing"] = function()
                 if currentCommand[commandList[i]] == 1 then 
                     commandState[commandList[i]] = "Pressing"
-                end
-                if currentCommand[commandList[i]] == 0 then 
+                else
                     commandState[commandList[i]] = "Released"
                 end
             end,
             ["Pressing"] = function()
                 if currentCommand[commandList[i]] == 1 then 
                     commandState[commandList[i]] = "Holding"
-                end
-                if currentCommand[commandList[i]] == 0 then 
+                else
                     commandState[commandList[i]] = "Releasing"
                 end
             end,
