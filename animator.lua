@@ -107,18 +107,11 @@ function maskPointAnimator(object)
 end
 function glowTransAnimator(object)
     if  object["LA"][object["LCT"]] ~= nil then 
-        for i = 1,4 do
-            object["linerDelta"][i] = object["LA"][object["LCT"]][i]
-        end
-        if object["LA"][object["LCT"]]["layer"] ~= nil then
-            object["layer"] = object["LA"][object["LCT"]]["layer"]
-        end
+        object["linerDelta"] = object["LA"][object["LCT"]]
     end
 
     if object["LCT"] <= object["LA"]["length"] then
-        for i = 1,4 do
-            object[4][i] =  object[4][i] + object["linerDelta"][i]
-        end
+        object[4] =  object[4] + object["linerDelta"]
         object["LCT"] = object["LCT"] + 1
     end
 

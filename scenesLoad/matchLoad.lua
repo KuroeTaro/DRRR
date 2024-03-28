@@ -565,7 +565,6 @@ function loadAnimOfCharSelectScene()
 
 end
 function loadShaderOfCharSelectScene()
-    --These two shaders were found on shadertoy, I just embedded these two shaders into love2d.
     fractalNoiseShader = love.graphics.newShader[[
         extern float time;
         
@@ -837,24 +836,27 @@ function loadOrderOfCharSelectScene(loadOrder)
             charSelectRightTextImage[4] = love.graphics.newImage(assetData[31])
         end,
         [1] = function()
+            for i = 0,2 do
+                continousGlowImage[i] = love.graphics.newImage(assetData[38+i])
+            end
             for i = 0,17 do
-                firstRingImage[i] = love.graphics.newImage(assetData[38+i])
+                firstRingImage[i] = love.graphics.newImage(assetData[41+i])
             end
         end,
         [2] = function()
-            movieCoverImage[0] = love.graphics.newImage(assetData[56])
-            movieCoverImage[1] = love.graphics.newImage(assetData[57])
-            movieCoverImage[2] = love.graphics.newImage(assetData[58])
-            charSelectBGImage = love.graphics.newImage(assetData[59])
-            charSelectLeftAlphaImage = love.graphics.newImage(assetData[60])
-            charSelectRightAlphaImage = love.graphics.newImage(assetData[61])
-            firstGlowImage = love.graphics.newImage(assetData[62])
-            secondRingImage = love.graphics.newImage(assetData[63])
+            movieCoverImage[0] = love.graphics.newImage(assetData[59])
+            movieCoverImage[1] = love.graphics.newImage(assetData[60])
+            movieCoverImage[2] = love.graphics.newImage(assetData[61])
+            charSelectBGImage = love.graphics.newImage(assetData[62])
+            charSelectLeftAlphaImage = love.graphics.newImage(assetData[63])
+            charSelectRightAlphaImage = love.graphics.newImage(assetData[64])
+            firstGlowImage = love.graphics.newImage(assetData[65])
+            secondRingImage = love.graphics.newImage(assetData[66])
 
-            controlMethod1Image = love.graphics.newImage(assetData[64])
-            controlMethod2Image = love.graphics.newImage(assetData[65])
+            controlMethod1Image = love.graphics.newImage(assetData[67])
+            controlMethod2Image = love.graphics.newImage(assetData[68])
 
-            barMarkImage = love.graphics.newImage(assetData[66])
+            barMarkImage = love.graphics.newImage(assetData[69])
         end
     }
     local thisFunction = switch[loadOrder]

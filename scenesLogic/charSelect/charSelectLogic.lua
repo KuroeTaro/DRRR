@@ -99,7 +99,7 @@ function charSelectSceneFirstAnim()
             secondRing[4] = 0.8
             timeNumber1[4] = 1
             timeNumber2[4] = 1
-            continousGlow[4] = {0,0.5,1,1}
+            continousGlow[4] = 1
             currentDrawBlock = function() 
                 charSelectSceneDraw2()
             end
@@ -439,7 +439,6 @@ function charSelectInterectFunction()
             secondRing[4] = 0.8+math.random(-1, 1)*0.03
             timerInCharSelect(SSV,timeNumber1,timeNumber2)
             glowTransAnimator(continousGlow)
-            initLinerAnimationWithOut(continousGlow,continousGlowLoopAnim)
 
             O1CharChangeFunction(1)
             O1CharChangeFunction(2)
@@ -449,7 +448,6 @@ function charSelectInterectFunction()
             iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
             secondRing[4] = 0.8+math.random(-1, 1)*0.03
             timerInCharSelect(SSV,timeNumber1,timeNumber2)
-            glowTransAnimator(continousGlow)
 
             O1CharChangeFunction(1)
             O1CharChangeFunction(2)

@@ -89,7 +89,7 @@ function charSelectSceneDraw2()
     drawOneImageUI(secondRing,secondRingImage)
     love.graphics.setBlendMode("alpha")
 
-    drawSecondGlowInCharSelect(glowAlphaPoint,continousGlowImage,continousGlow)
+    drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlurShader,continousGlow)
     drawSolid(solidColor)
 end
 function charSelectSceneDraw3()
@@ -124,6 +124,6 @@ function charSelectSceneDraw3()
     drawOneImageUI(secondRing,secondRingImage)
     love.graphics.setBlendMode("alpha")
 
-    drawSecondGlowInCharSelect(glowAlphaPoint,continousGlowImage,continousGlow)
+    drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlurShader,continousGlow)
     drawSolid(solidColor)
 end

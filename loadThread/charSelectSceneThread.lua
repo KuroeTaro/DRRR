@@ -44,26 +44,22 @@ imageData[35] = love.image.newImageData("asset/UI/CharSelectScene/CharSelect/KTC
 imageData[36] = love.image.newImageData("asset/UI/CharSelectScene/CharSelect/SHINRATextRight.png")
 imageData[37] = love.image.newImageData("asset/UI/CharSelectScene/CharSelect/SRTTextRight.png")
 
-imageData[38] = love.image.newImageData("asset/UI/CharSelectScene/ContinousGlow/0.png")
-imageData[39] = love.image.newImageData("asset/UI/CharSelectScene/ContinousGlow/1.png")
-imageData[40] = love.image.newImageData("asset/UI/CharSelectScene/ContinousGlow/2.png")
-
 for i = 0,17 do
-    imageData[41+i] = love.image.newImageData("asset/UI/CharSelectScene/FirstRing/"..i..".png")
+    imageData[38+i] = love.image.newImageData("asset/UI/CharSelectScene/FirstRing/"..i..".png")
 end
 
-imageData[59] = love.image.newImageData("asset/UI/CharSelectScene/movieCover/0.png")
-imageData[60] = love.image.newImageData("asset/UI/CharSelectScene/movieCover/0.png")
-imageData[61] = love.image.newImageData("asset/UI/CharSelectScene/movieCover/0.png")
+imageData[56] = love.image.newImageData("asset/UI/CharSelectScene/movieCover/0.png")
+imageData[57] = love.image.newImageData("asset/UI/CharSelectScene/movieCover/0.png")
+imageData[58] = love.image.newImageData("asset/UI/CharSelectScene/movieCover/0.png")
 
-imageData[62] = love.image.newImageData("asset/UI/CharSelectScene/charSelectBG.png")
-imageData[63] = love.image.newImageData("asset/UI/CharSelectScene/charSelectLeftAlpha.png")
-imageData[64] = love.image.newImageData("asset/UI/CharSelectScene/charSelectRightAlpha.png")
-imageData[65] = love.image.newImageData("asset/UI/CharSelectScene/FirstGlow.png")
-imageData[66] = love.image.newImageData("asset/UI/CharSelectScene/SecondRing.png")
+imageData[59] = love.image.newImageData("asset/UI/CharSelectScene/charSelectBG.png")
+imageData[60] = love.image.newImageData("asset/UI/CharSelectScene/charSelectLeftAlpha.png")
+imageData[61] = love.image.newImageData("asset/UI/CharSelectScene/charSelectRightAlpha.png")
+imageData[62] = love.image.newImageData("asset/UI/CharSelectScene/FirstGlow.png")
+imageData[63] = love.image.newImageData("asset/UI/CharSelectScene/SecondRing.png")
 
-imageData[67] = love.image.newImageData("asset/UI/CharSelectScene/ControlMethod1.png")
-imageData[68] = love.image.newImageData("asset/UI/CharSelectScene/ControlMethod2.png")
-imageData[69] = love.image.newImageData("asset/UI/StartScene/Config/BarMark.png")
+imageData[64] = love.image.newImageData("asset/UI/CharSelectScene/ControlMethod1.png")
+imageData[65] = love.image.newImageData("asset/UI/CharSelectScene/ControlMethod2.png")
+imageData[66] = love.image.newImageData("asset/UI/StartScene/Config/BarMark.png")
 
 love.thread.getChannel( 'image' ):push( imageData )
