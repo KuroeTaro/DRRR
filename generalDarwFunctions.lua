@@ -110,7 +110,7 @@ function drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlur
     local y = resolutionCorrection(object[2])
     local s = resolutionCorrection(object[3])
     local canvas = love.graphics.newCanvas(1600,900)
-    local canvasRadialBlur= love.graphics.newCanvas(1600,900)
+    local canvasRadialBlur = love.graphics.newCanvas(1600,900)
     local canvasAlphaCom = love.graphics.newCanvas(1600,900)
     local alpha = love.graphics.newCanvas(1600,900)
 
