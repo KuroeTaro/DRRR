@@ -110,7 +110,7 @@ function drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlur
     local y = resolutionCorrection(object[2])
     local s = resolutionCorrection(object[3])
     local canvas = love.graphics.newCanvas(1600,900)
-    local canvasRadialBluer= love.graphics.newCanvas(1600,900)
+    local canvasRadialBlur= love.graphics.newCanvas(1600,900)
     local canvasAlphaCom = love.graphics.newCanvas(1600,900)
     local alpha = love.graphics.newCanvas(1600,900)
 
@@ -125,16 +125,16 @@ function drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlur
     love.graphics.setShader()
     love.graphics.setCanvas()
 
-    love.graphics.setCanvas(canvasRadialBluer)
+    love.graphics.setCanvas(canvasRadialBlur)
     love.graphics.setShader(radialBlurShader)
     radialBlurShader:send("startCood", { -230,-120 })
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(canvas, 0, 0)
     love.graphics.setShader()
-    love.graphics.setCanvas(canvasRadialBluer)
+    love.graphics.setCanvas(canvasRadialBlur)
 
     love.graphics.setCanvas(canvasAlphaCom)
-    love.graphics.draw(canvasRadialBluer)
+    love.graphics.draw(canvasRadialBlur)
     love.graphics.setBlendMode('multiply', 'premultiplied')
     love.graphics.draw(alpha)
     love.graphics.setBlendMode('alpha', 'alphamultiply')
