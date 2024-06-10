@@ -568,12 +568,10 @@ function loadShaderOfCharSelectScene()
     --These two shaders were found on shadertoy, I just embedded these two shaders into love2d.
     fractalNoiseShader = love.graphics.newShader[[
         extern float time;
-        float hash(float x)
-        {
+        float hash(float x){
             return mod(sin(cos(x * 12.13) * 19.123) * 17.321, 1.0);
         }
-        float noise(vec2 p)
-        {
+        float noise(vec2 p){
             vec2 pm = mod(p, 1.0);
             vec2 pd = p - pm;
             float v0 = hash(pd.x + pd.y * 41.0);
@@ -584,36 +582,24 @@ function loadShaderOfCharSelectScene()
             v2 = mix(v2, v3, smoothstep(0.0, 1.0, pm.x));
             return mix(v0, v2, smoothstep(0.0, 1.0, pm.y));
         }
-        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-        {
+        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords){
             vec2 uv = screen_coords.xy / 900;
             uv *= 0.8;
             float v = 0.0;
-    
-            for (float i = 0.0; i < 12.0; i += 1.0)
-            {
+            for (float i = 0.0; i < 12.0; i += 1.0){
                 float t = mod(1 + i, 12.0);
                 float l = 1 - t;
                 float e = exp2(t);
                 v += noise(uv * e + vec2(time*1, 1)) * (1.0 - (t / 12.0)) * (t / 12.0);
             }
-    
-            v -= 1;
-            v = v * 2;
-            v = v + 0.2;
-            if(v< 0){
-                v = 0;
-            }else if(v > 1){
-                v = 1;
-            }
+            v = Math.max(0, Math.min(1, (v - 1) * 2 + 0.2));
             return vec4(v, v, v, 1.0);
         }
     ]]
     radialBlurShader = love.graphics.newShader[[
         extern vec2 startCood;
         const int nsamples = 500;
-        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-        {
+        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords){
             screen_coords.x = 1600;
             screen_coords.y = 900;
             vec2 center = startCood.xy / screen_coords.xy;
@@ -625,12 +611,10 @@ function loadShaderOfCharSelectScene()
             float precompute = blurWidth * (1.0 / float(nsamples - 1));
 
             vec4 finalColor = vec4(0.0);
-            for (int i = 0; i < nsamples; i++)
-            {
+            for (int i = 0; i < nsamples; i++){
                 float scale = blurStart + (float(i) * precompute);
                 finalColor += Texel(texture, uv * scale + center);
             }
-
             finalColor /= float(nsamples);
             return finalColor;
         }
