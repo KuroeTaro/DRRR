@@ -1,5 +1,5 @@
 # DRRR
- a Blazblue fighting game prototype base on Durarara!
+ a arcsysy fighting game prototype base on Durarara!
  
 You will need to download a LOVE framework yourself then drag and drop the entire DRRR folder into LOVE.exe to run this repository.
 I've only made the character selection and start screen now, so I'll update as soon as I've recovered the character interaction part, so don't worry.
