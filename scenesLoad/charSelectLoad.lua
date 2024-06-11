@@ -592,7 +592,7 @@ function loadShaderOfCharSelectScene()
                 float e = exp2(t);
                 v += noise(uv * e + vec2(time*1, 1)) * (1.0 - (t / 12.0)) * (t / 12.0);
             }
-            v = Math.max(0, Math.min(1, (v - 1) * 2 + 0.2));
+            v = ((v - 1) * 2 + 0.2 < 0) ? 0 : (((v - 1) * 2 + 0.2 > 1) ? 1 : (v - 1) * 2 + 0.2);
             return vec4(v, v, v, 1.0);
         }
     ]]
