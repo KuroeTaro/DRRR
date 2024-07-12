@@ -44,25 +44,43 @@ function logoFlashIn()
         currentUpdateBlock = function() 
             logoKeepTimer()
         end
+    elseif commandState[1]["D"] == "Pressing" then 
+        KTHObject[4] = 0 
+        L2DObject[4] = 1
+        currentUpdateBlock = function() 
+            L2DKeepTimer()
+        end
     end
 end
 function logoKeepTimer()
     localCounter(120)
     if counter > 120 then 
         counter = nil
+        initLinerAnimationWith(KTHObject,flashLinerAnim2)
         currentUpdateBlock = function()
             logoFlashOut()
         end
-        initLinerAnimationWith(KTHObject,flashLinerAnim2)
+    elseif commandState[1]["D"] == "Pressing" then 
+        KTHObject[4] = 0 
+        L2DObject[4] = 1
+        currentUpdateBlock = function() 
+            L2DKeepTimer()
+        end
     end
 end
 function logoFlashOut()
     linerAnimator(KTHObject)
     if KTHObject["LCT"] > KTHObject["LA"]["length"] then 
+        initLinerAnimationWith(L2DObject,flashLinerAnim1)
         currentUpdateBlock = function() 
             L2DFlashIn()
         end
-        initLinerAnimationWith(L2DObject,flashLinerAnim1)
+    elseif commandState[1]["D"] == "Pressing" then 
+        KTHObject[4] = 0 
+        L2DObject[4] = 1
+        currentUpdateBlock = function() 
+            L2DKeepTimer()
+        end
     end
 end
 function L2DFlashIn()
@@ -71,16 +89,27 @@ function L2DFlashIn()
         currentUpdateBlock = function() 
             L2DKeepTimer()
         end
+    elseif commandState[1]["D"] == "Pressing" then 
+        L2DObject[4] = 1
+        currentUpdateBlock = function() 
+            L2DFlashOut()
+        end
     end
 end
 function L2DKeepTimer()
     localCounter(120)
     if counter > 120 then 
         counter = nil
+        initLinerAnimationWith(L2DObject,flashLinerAnim2)
         currentUpdateBlock = function()
             L2DFlashOut()
         end
+    elseif commandState[1]["D"] == "Pressing" then 
+        L2DObject[4] = 1
         initLinerAnimationWith(L2DObject,flashLinerAnim2)
+        currentUpdateBlock = function() 
+            L2DFlashOut()
+        end
     end
 end
 function L2DFlashOut()

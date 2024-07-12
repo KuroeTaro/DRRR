@@ -1,9 +1,11 @@
 function loadObjectOfCharSelectScene()
     sceneCounter = 0
+
+    SSV = {}
+
     subUpdateBlocks = {}
     subUpdateBlocks[1] = function() end
 
-    SSV = {}
     SSV["timer"] = {6,0}
     SSV["frameTimer"] = -1
 
@@ -416,6 +418,11 @@ function loadAnimOfCharSelectScene()
     iconCharMoveAnim["length"] = 12
     iconCharMoveAnim["loopType"] = "const"
 
+    movieCoverFrameAnim = {}
+    movieCoverFrameAnim[0] = {0,0,0,0,1}
+    movieCoverFrameAnim["length"] = 5
+    movieCoverFrameAnim["loopType"] = "loop"
+
     charSelectCharMoveInAnim = {}
     charSelectCharMoveInAnim[0] = {-26.9,0,0,0,0}
     charSelectCharMoveInAnim[1] = {-33.2+26.9,0,0,0,0}
@@ -566,59 +573,8 @@ function loadAnimOfCharSelectScene()
 end
 function loadShaderOfCharSelectScene()
     --These two shaders were found on shadertoy, I just embedded these two shaders into love2d.
-    fractalNoiseShader = love.graphics.newShader[[
-        extern float time;
-        float hash(float x){
-            return mod(sin(cos(x * 12.13) * 19.123) * 17.321, 1.0);
-        }
-        float noise(vec2 p){
-            vec2 pm = mod(p, 1.0);
-            vec2 pd = p - pm;
-            float v0 = hash(pd.x + pd.y * 41.0);
-            float v1 = hash(pd.x + 1.0 + pd.y * 41.0);
-            float v2 = hash(pd.x + pd.y * 41.0 + 41.0);
-            float v3 = hash(pd.x + pd.y * 41.0 + 42.0);
-            v0 = mix(v0, v1, smoothstep(0.0, 1.0, pm.x));
-            v2 = mix(v2, v3, smoothstep(0.0, 1.0, pm.x));
-            return mix(v0, v2, smoothstep(0.0, 1.0, pm.y));
-        }
-        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords){
-            vec2 uv = screen_coords.xy / 900;
-            uv *= 0.8;
-            float v = 0.0;
-            for (float i = 0.0; i < 12.0; i += 1.0){
-                float t = mod(1 + i, 12.0);
-                float l = 1 - t;
-                float e = exp2(t);
-                v += noise(uv * e + vec2(time*1, 1)) * (1.0 - (t / 12.0)) * (t / 12.0);
-            }
-            v = ((v - 1) * 2 + 0.2 < 0) ? 0 : (((v - 1) * 2 + 0.2 > 1) ? 1 : (v - 1) * 2 + 0.2);
-            return vec4(v, v, v, 1.0);
-        }
-    ]]
-    radialBlurShader = love.graphics.newShader[[
-        extern vec2 startCood;
-        const int nsamples = 500;
-        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords){
-            screen_coords.x = 1600;
-            screen_coords.y = 900;
-            vec2 center = startCood.xy / screen_coords.xy;
-            float blurStart = 0.5;
-            float blurWidth = 0.5;
-
-            vec2 uv = texture_coords.xy;
-            uv -= center;
-            float precompute = blurWidth * (1.0 / float(nsamples - 1));
-
-            vec4 finalColor = vec4(0.0);
-            for (int i = 0; i < nsamples; i++){
-                float scale = blurStart + (float(i) * precompute);
-                finalColor += Texel(texture, uv * scale + center);
-            }
-            finalColor /= float(nsamples);
-            return finalColor;
-        }
-    ]]
+    fractalNoiseShader = love.graphics.newShader("shaders/fractalNoise.glsl")
+    radialBlurShader = love.graphics.newShader("shaders/radialBlur.glsl")
 end
 function loadAudioSourceOfCharSelectScene()
     psychedelicParadeReEditSource = love.audio.newSource("asset/UI/CharSelectScene/psychedelicParadeReEdit.mp3","static")
@@ -653,8 +609,618 @@ function loadAudioSourceOfCharSelectScene()
     flashOutSFXSource:setVolume(UISFXVolume[0]/10)
 
 end
+
+-- switch local logic and local array tranfer
+function loadSubSwitchesOfCharSelectScene()
+    firstAnimSwtich = {
+        [0] = function()
+            love.audio.play(charSelectStartSFX1Source)
+        end,
+        [1] = function()
+            linerAnimator(solidColor)
+            frameAnimator(firstRing)
+        end,
+        [16] = function()
+            frameAnimator(firstRing)
+        end,
+        [20] = function()
+            frameAnimator(firstRing)
+            love.audio.play(charSelectStartSFX2Source)
+        end,
+        [21] = function()
+            frameAnimator(firstRing)
+        end,
+        [25] = function()
+            frameAnimator(firstRing)
+            initLinerAnimationWithOut(firstGlow,firstGlowFlashInLinerAnim)
+        end,
+        [26] = function()
+            linerAnimator(firstGlow)
+            frameAnimator(firstRing)
+        end,
+        [35] = function()
+            solidColor = {1,1,1,1,0}
+            solidColor["FCT"] = 0
+            solidColor["LCT"] = 0
+            solidColor["linerDelta"] = {0,0,0,0,0}
+            firstRing[4] = 0
+            firstGlow[4] = 0
+            charSelectBG[4] = 1
+            secondRing[4] = 0.8
+            timeNumber1[4] = 1
+            timeNumber2[4] = 1
+            continousGlow[4] = 1
+            currentDrawBlock = function() 
+                charSelectSceneDraw2()
+            end
+        end,
+        [36] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            initLinerAnimationWithOut(solidColor,solidFlashInLinerAnim2)
+            initLinerAnimationWithOut(glowAlphaPoint,glowAlphaPointAnim)
+            initLinerAnimationWithOut(continousGlow,continousGlowFlashInAnim)
+            initLinerAnimationWithOut(iconCover1,charSelectFlashInAnim)
+            initLinerAnimationWithOut(iconCover2,charSelectFlashInAnim)
+
+            initLinerAnimationWithOut(charSelectRight,charSelectFlashInAnim)
+            initLinerAnimationWithOut(charSelectLeft,charSelectFlashInAnim)
+            initLinerAnimationWithOut(charSelectRightChar,charSelectCharMoveInAnim)
+            initLinerAnimationWithOut(charSelectLeftChar,charSelectCharMoveInAnim)
+            initLinerAnimationWithOut(charSelectRightText,charSelectTextMoveInAnim)
+            initLinerAnimationWithOut(charSelectLeftText,charSelectTextMoveInAnim)
+        end,
+        [37] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            initLinerAnimationWithOut(ANRIIcon,iconFlashInAnimHalf)
+            initLinerAnimationWithOut(CKGIcon,iconFlashInAnimHalf)
+            initLinerAnimationWithOut(ERIKAWK3Icon,iconFlashInAnimHalf)
+            initLinerAnimationWithOut(IZYIcon,iconFlashInAnimHalf)
+
+            initLinerAnimationWithOut(iconCover1,iconFlashInAnim)
+        end,
+        [38] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            initLinerAnimationWithOut(KTCIcon,iconFlashInAnimHalf)
+            initLinerAnimationWithOut(SHINRAIcon,iconFlashInAnimHalf)
+            initLinerAnimationWithOut(SRTIcon,iconFlashInAnimHalf)
+            initLinerAnimationWithOut(SZOIcon,iconFlashInAnimHalf)
+
+            initLinerAnimationWithOut(iconCover2,iconFlashInAnim)
+        end,
+        [39] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            initLinerAnimationWithOut(ANRIIconChar,iconCharMoveAnim)
+            initLinerAnimationWithOut(CKGIconChar,iconCharMoveAnim)
+            initLinerAnimationWithOut(ERIKAWK3IconChar,iconCharMoveAnim)
+            initLinerAnimationWithOut(IZYIconChar,iconCharMoveAnim)
+        end,
+        [40] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            initLinerAnimationWithOut(KTCIconChar,iconCharMoveAnim)
+            initLinerAnimationWithOut(SHINRAIconChar,iconCharMoveAnim)
+            initLinerAnimationWithOut(SRTIconChar,iconCharMoveAnim)
+            initLinerAnimationWithOut(SZOIconChar,iconCharMoveAnim)
+        end,
+        [41] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            linerAnimator(solidColor)
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+        end,
+        [46] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+            linerAnimator(SRTIcon)
+            linerAnimator(SRTIconChar)
+        end,
+        [51] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+            linerAnimator(SRTIcon)
+            linerAnimator(SRTIconChar)
+            linerAnimator(SHINRAIcon)
+            linerAnimator(SHINRAIconChar)
+        end,
+        [56] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+            linerAnimator(SRTIcon)
+            linerAnimator(SRTIconChar)
+            linerAnimator(SHINRAIcon)
+            linerAnimator(SHINRAIconChar)
+            linerAnimator(CKGIcon)
+            linerAnimator(CKGIconChar)
+        end,
+        [61] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+            linerAnimator(SRTIcon)
+            linerAnimator(SHINRAIcon)
+            linerAnimator(SHINRAIconChar)
+            linerAnimator(CKGIcon)
+            linerAnimator(CKGIconChar)
+            linerAnimator(SZOIcon)
+            linerAnimator(SZOIconChar)
+
+            linerAnimator(iconCover2)
+        end,
+        [66] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            linerAnimator(charSelectRight)
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(SHINRAIcon)
+            linerAnimator(CKGIcon)
+            linerAnimator(CKGIconChar)
+            linerAnimator(SZOIcon)
+            linerAnimator(SZOIconChar)
+            linerAnimator(IZYIcon)
+            linerAnimator(IZYIconChar)
+
+            linerAnimator(iconCover2)
+            linerAnimator(iconCover1)
+        end,
+        [71] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeft)
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+
+            linerAnimator(CKGIcon)
+            linerAnimator(SZOIcon)
+            linerAnimator(SZOIconChar)
+            linerAnimator(IZYIcon)
+            linerAnimator(IZYIconChar)
+            linerAnimator(ANRIIcon)
+            linerAnimator(ANRIIconChar)
+
+            linerAnimator(iconCover2)
+            linerAnimator(iconCover1)
+        end,
+        [76] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+            
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+
+            linerAnimator(SZOIcon)
+            linerAnimator(IZYIcon)
+            linerAnimator(IZYIconChar)
+            linerAnimator(ANRIIcon)
+            linerAnimator(ANRIIconChar)
+            linerAnimator(KTCIcon)
+            linerAnimator(KTCIconChar)
+
+            linerAnimator(iconCover2)
+            linerAnimator(iconCover1)
+        end,
+        [81] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+
+            linerAnimator(IZYIcon)
+            linerAnimator(ANRIIcon)
+            linerAnimator(ANRIIconChar)
+            linerAnimator(KTCIcon)
+            linerAnimator(KTCIconChar)
+            linerAnimator(ERIKAWK3Icon)
+            linerAnimator(ERIKAWK3IconChar)
+
+            linerAnimator(iconCover1)
+        end,
+        [86] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+
+            linerAnimator(ANRIIcon)
+            linerAnimator(KTCIcon)
+            linerAnimator(KTCIconChar)
+            linerAnimator(ERIKAWK3Icon)
+            linerAnimator(ERIKAWK3IconChar)
+        end,
+        [91] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+
+            linerAnimator(KTCIcon)
+            linerAnimator(ERIKAWK3Icon)
+            linerAnimator(ERIKAWK3IconChar)
+        end,
+        [96] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+
+            linerAnimator(ERIKAWK3Icon)
+        end,
+        [101] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+        end,
+        [106] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            glowTransAnimator(continousGlow)
+
+            O1CharChangeFunction(1)
+            O1CharChangeFunction(2)
+
+            linerAnimator(charSelectRightChar)
+            linerAnimator(charSelectRightText)
+
+            linerAnimator(charSelectLeftChar)
+            linerAnimator(charSelectLeftText)
+            currentUpdateBlock = function()
+                charSelectInterectFunction()
+            end
+            currentDrawBlock = function() 
+                charSelectSceneDraw3()
+            end
+        end
+    }
+    InterectCharSelectSwtich = {
+        [121] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            maskPointAnimator(glowAlphaPoint)
+            timerInCharSelect(SSV,timeNumber1,timeNumber2)
+            glowTransAnimator(continousGlow)
+            
+            O1CharChangeFunction(1)
+            O1CharChangeFunction(2)
+        end,
+        [131] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            timerInCharSelect(SSV,timeNumber1,timeNumber2)
+            glowTransAnimator(continousGlow)
+
+            O1CharChangeFunction(1)
+            O1CharChangeFunction(2)
+        end,
+        [340] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            timerInCharSelect(SSV,timeNumber1,timeNumber2)
+            glowTransAnimator(continousGlow)
+
+            O1CharChangeFunction(1)
+            O1CharChangeFunction(2)
+        end,        
+        [341] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            secondRing[4] = 0.8+math.random(-1, 1)*0.03
+            timerInCharSelect(SSV,timeNumber1,timeNumber2)
+
+            O1CharChangeFunction(1)
+            O1CharChangeFunction(2)
+        end
+    }
+    charSelectSceneFlashOutSwtich = {
+        [0] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            linerAnimator(secondRing)
+            love.audio.play(flashOutSFXSource)
+            audioAnimator(BGMVolume)
+            updateBGMVolumeInCharSelect()
+        end,
+        [5] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            linerAnimator(solidColor)
+            linerAnimator(secondRing)
+            audioAnimator(BGMVolume)
+            updateBGMVolumeInCharSelect()
+        end,
+        [10] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            linerAnimator(solidColor)
+            linerAnimator(secondRing)
+            audioAnimator(BGMVolume)
+            updateBGMVolumeInCharSelect()
+        end,        
+        [15] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+            linerAnimator(solidColor)
+            audioAnimator(BGMVolume)
+            updateBGMVolumeInCharSelect()
+        end,
+        [20] = function()
+            iconCover1[6] = iconCover1[4]*0.1+math.random(-1, 1)*0.01
+            iconCover2[6] = iconCover2[4]*0.1+math.random(-1, 1)*0.01
+        end,
+        [90] = function()
+            loadOnce = false
+            loadObjectOfLoadScene()
+            daboTrig[4] = 1
+            initFrameAnimationWith(daboTrig,daboTrigAnim1)
+            love.audio.play(startLoadSource)
+            currentUpdateBlock = function()
+                matchSelectSceneLoadFlashInAnim()
+            end
+            currentDrawBlock = function()
+                loadSceneDraw()
+            end
+            unloadOrderOfCharSelectScene()
+    
+            threadOnce = false
+            loadOnce = false 
+            loadOrder = 0
+    
+            assetData = nil
+        end
+    }
+    O1CharChangeSwtich = {
+        ["flashIn"] = function(playerID)
+            linerAnimator(coverArray[playerID])
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+            linerAnimator(iconCoverArray[playerID])
+            if commandState[playerID]["Left"] == "Pressing" then 
+                branchToOutLogic(playerID)
+                love.audio.play(playerSwitchSource[playerID])
+                if selectedChar[playerID] ~= 0 then
+                    selectedChar[playerID] = selectedChar[playerID] - 1
+                else
+                    selectedChar[playerID] = 7 
+                end
+            elseif commandState[playerID]["Right"] == "Pressing" then 
+                branchToOutLogic(playerID)
+                love.audio.play(playerSwitchSource[playerID])
+                if selectedChar[playerID] ~= 7 then
+                    selectedChar[playerID] = selectedChar[playerID] + 1
+                else
+                    selectedChar[playerID] = 0 
+                end
+            elseif commandState[playerID]["D"] == "Pressing" then
+                branchToSelectedLogic(playerID)
+                love.audio.play(playerSelectSource[playerID])
+            elseif charArray[playerID]["LCT"] > charArray[playerID]["LA"]["length"] 
+            and textArray[playerID]["LCT"] > textArray[playerID]["LA"]["length"] then
+                coverArray[playerID]["state"] = "static"
+            end
+        end,
+        ["static"] = function(playerID)
+            if commandState[playerID]["Left"] == "Pressing" then 
+                branchToOutLogic(playerID)
+                love.audio.play(playerSwitchSource[playerID])
+                if selectedChar[playerID] ~= 0 then
+                    selectedChar[playerID] = selectedChar[playerID] - 1
+                else
+                    selectedChar[playerID] = 7 
+                end
+            elseif commandState[playerID]["Right"] == "Pressing" then 
+                branchToOutLogic(playerID)
+                love.audio.play(playerSwitchSource[playerID])
+                if selectedChar[playerID] ~= 7 then
+                    selectedChar[playerID] = selectedChar[playerID] + 1
+                else
+                    selectedChar[playerID] = 0 
+                end
+            elseif commandState[playerID]["D"] == "Pressing" then 
+                branchToSelectedLogic(playerID)
+                love.audio.play(playerSelectSource[playerID])
+                coverArray[playerID]["state"] = "selecting"
+            end
+        end,
+        ["selecting"] = function(playerID)
+            linerAnimator(coverArray[playerID])
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+            frameAnimator(controlSelectTextArray[playerID])
+            frameAnimator(controlSelectBarArray[playerID])
+            if coverArray[playerID]["LCT"] > coverArray[playerID]["LA"]["length"] 
+            and controlSelectTextArray[playerID]["FCT"] > controlSelectTextArray[playerID]["FA"]["length"]
+            and controlSelectBarArray[playerID]["FCT"] > controlSelectBarArray[playerID]["FA"]["length"] then
+                coverArray[playerID]["state"] = "selected"
+            end
+        end,
+        ["selected"] = function(playerID)
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+            if commandState[playerID]["C"] == "Pressing" then 
+                branchToUnselectedLogic(playerID)
+                love.audio.play(playerUnselectSource[playerID])
+                coverArray[playerID]["state"] = "unselecting"
+            elseif commandState[playerID]["D"] == "Pressing" then 
+                branchToLockedLogic(playerID)
+                love.audio.play(playerLockSource[playerID])
+                coverArray[playerID]["state"] = "locking"
+            elseif commandState[playerID]["Up"] == "Pressing" then 
+                love.audio.play(playerSwitchSource[playerID])
+                if selectedControlMode[playerID] == 0 then
+                    initFrameAnimationWithOut(controlSelectBarArray[playerID],barMoveUpTwitchAnim)
+                else
+                    initFrameAnimationWithOut(controlSelectBarArray[playerID],barMoveUpAnim)
+                    selectedControlMode[playerID] = 0
+                end
+                coverArray[playerID]["state"] = "selectedAnimating"
+            elseif commandState[playerID]["Down"] == "Pressing" then 
+                love.audio.play(playerSwitchSource[playerID])
+                if selectedControlMode[playerID] == 0 then
+                    initFrameAnimationWithOut(controlSelectBarArray[playerID],barMoveDownAnim)
+                    selectedControlMode[playerID] = 1
+                else
+                    initFrameAnimationWithOut(controlSelectBarArray[playerID],barMoveDownTwitchAnim)
+                end
+                coverArray[playerID]["state"] = "selectedAnimating"
+            end
+        end,
+        ["selectedAnimating"] = function(playerID)
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+            frameAnimator(controlSelectBarArray[playerID])
+            if controlSelectBarArray[playerID]["FCT"] > controlSelectBarArray[playerID]["FA"]["length"] then
+                coverArray[playerID]["state"] = "selected"
+            end
+        end,
+        ["unselecting"] = function(playerID)
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+            linerAnimator(coverArray[playerID])
+            frameAnimator(controlSelectTextArray[playerID])
+            frameAnimator(controlSelectBarArray[playerID])
+            if coverArray[playerID]["LCT"] > coverArray[playerID]["LA"]["length"] 
+            and controlSelectTextArray[playerID]["FCT"] > controlSelectTextArray[playerID]["FA"]["length"]
+            and controlSelectBarArray[playerID]["FCT"] > controlSelectBarArray[playerID]["FA"]["length"] then
+                coverArray[playerID]["state"] = "static"
+            end
+        end,
+        ["flashOut"] = function(playerID)
+            linerAnimator(coverArray[playerID])
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+            linerAnimator(iconCoverArray[playerID])
+            if commandState[playerID]["Left"] == "Pressing" then 
+                coverArray[playerID][5] = selectedChar[playerID]
+                iconCoverArray[playerID][5] = selectedChar[playerID]
+                branchToOutLogic(playerID)
+                love.audio.play(playerSwitchSource[playerID])
+            elseif commandState[playerID]["right"] == "Pressing" then 
+                coverArray[playerID][5] = selectedChar[playerID]
+                iconCoverArray[playerID][5] = selectedChar[playerID]
+                branchToOutLogic(playerID)
+                love.audio.play(playerSwitchSource[playerID])
+            elseif charArray[playerID]["LCT"] > charArray[playerID]["LA"]["length"] 
+            and textArray[playerID]["LCT"] > textArray[playerID]["LA"]["length"] then
+                coverArray[playerID][5] = selectedChar[playerID]
+                iconCoverArray[playerID][5] = selectedChar[playerID]
+                branchToInLogic(playerID)
+            end
+        end,
+        ["locking"] = function(playerID)
+            linerAnimator(coverArray[playerID])
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+            linerAnimator(iconCoverArray[playerID])
+            frameAnimator(controlSelectTextArray[playerID])
+            frameAnimator(controlSelectBarArray[playerID])
+            if coverArray[playerID]["LCT"] > coverArray[playerID]["LA"]["length"]
+            and iconCoverArray[playerID]["LCT"] > iconCoverArray[playerID]["LA"]["length"]
+            and controlSelectTextArray[playerID]["FCT"] > controlSelectTextArray[playerID]["FA"]["length"]
+            and controlSelectBarArray[playerID]["FCT"] > controlSelectBarArray[playerID]["FA"]["length"] then
+                coverArray[playerID]["state"] = "locked"
+            end
+        end,
+        ["locked"] = function(playerID)
+            linerAnimator(charArray[playerID])
+            linerAnimator(textArray[playerID])
+        end
+    }
+end
+function loadLeftRightArrayOfCharSelectScene()
+    coverArray = {charSelectLeft,charSelectRight}
+    charArray = {charSelectLeftChar,charSelectRightChar}
+    textArray = {charSelectLeftText,charSelectRightText}
+    charPosArray = {SSV["leftCharImagePos"],SSV["rightCharImagePos"]}
+    textPosArray = {SSV["leftCharTextPos"],SSV["rightCharTextPos"]}
+    controlSelectTextArray = {controlSelectText1,controlSelectText2}
+    controlSelectBarArray = {controlSelectBar1,controlSelectBar2}
+    iconCoverArray = {iconCover1,iconCover2}
+end
+
 function unloadObjectOfCharSelectScene()
-    SSV = nil
+    SSV = {}
+    subUpdateBlocks = {}
+    
     solidColor = nil
     charSelectBG = nil
     movieCover = nil
@@ -708,6 +1274,7 @@ function unloadAnimOfCharSelectScene()
     iconFlashInAnim = nil
     iconFlashInAnimHalf = nil
     iconCharMoveAnim = nil
+    movieCoverFrameAnim = nil
     charSelectCharMoveInAnim = nil
     charSelectCharMoveOutAnim = nil
     charSelectTextMoveInAnim = nil
@@ -738,7 +1305,25 @@ function unloadAudioSourceOfCharSelectScene()
     playerLockSource = nil
     flashOutSFXSource = nil
 end
-   
+
+-- switch local logic and local array tranfer
+function unloadSubSwitchesOfCharSelectScene()
+    firstAnimSwtich = nil
+    InterectCharSelectSwtich = nil
+    charSelectSceneFlashOutSwtich = nil
+    O1CharChangeSwtich = nil
+end
+function unloadLeftRightArrayOfCharSelectScene()
+    coverArray = nil
+    charArray = nil
+    textArray = nil
+    charPosArray = nil
+    textPosArray = nil
+    controlSelectTextArray = nil
+    controlSelectBarArray = nil
+    iconCoverArray = nil
+end
+
 -- order load and unload functions
 function loadOrderOfCharSelectScene(loadOrder)
     local switch = 
@@ -748,6 +1333,9 @@ function loadOrderOfCharSelectScene(loadOrder)
             loadAnimOfCharSelectScene()
             loadShaderOfCharSelectScene()
             loadAudioSourceOfCharSelectScene()
+
+            loadSubSwitchesOfCharSelectScene()
+            loadLeftRightArrayOfCharSelectScene()
 
             continousGlowImage ={}
             firstRingImage = {}
@@ -821,16 +1409,23 @@ function loadOrderOfCharSelectScene(loadOrder)
             movieCoverImage[0] = love.graphics.newImage(assetData[56])
             movieCoverImage[1] = love.graphics.newImage(assetData[57])
             movieCoverImage[2] = love.graphics.newImage(assetData[58])
-            charSelectBGImage = love.graphics.newImage(assetData[59])
-            charSelectLeftAlphaImage = love.graphics.newImage(assetData[60])
-            charSelectRightAlphaImage = love.graphics.newImage(assetData[61])
-            firstGlowImage = love.graphics.newImage(assetData[62])
-            secondRingImage = love.graphics.newImage(assetData[63])
+            movieCoverImage[3] = love.graphics.newImage(assetData[59])
+            movieCoverImage[4] = love.graphics.newImage(assetData[60])
+            movieCoverImage[5] = love.graphics.newImage(assetData[61])
+            movieCoverImage[6] = love.graphics.newImage(assetData[62])
+            movieCoverImage[7] = love.graphics.newImage(assetData[63])
+            movieCoverImage[8] = love.graphics.newImage(assetData[64])
+            movieCoverImage[9] = love.graphics.newImage(assetData[65])
+            charSelectBGImage = love.graphics.newImage(assetData[66])
+            charSelectLeftAlphaImage = love.graphics.newImage(assetData[67])
+            charSelectRightAlphaImage = love.graphics.newImage(assetData[68])
+            firstGlowImage = love.graphics.newImage(assetData[69])
+            secondRingImage = love.graphics.newImage(assetData[70])
 
-            controlMethod1Image = love.graphics.newImage(assetData[64])
-            controlMethod2Image = love.graphics.newImage(assetData[65])
+            controlMethod1Image = love.graphics.newImage(assetData[71])
+            controlMethod2Image = love.graphics.newImage(assetData[72])
 
-            barMarkImage = love.graphics.newImage(assetData[66])
+            barMarkImage = love.graphics.newImage(assetData[73])
         end
     }
     local thisFunction = switch[loadOrder]
@@ -841,6 +1436,9 @@ function unloadOrderOfCharSelectScene()
     unloadAnimOfCharSelectScene()
     unloadShaderOfCharSelectScene()
     unloadAudioSourceOfCharSelectScene()
+
+    unloadSubSwitchesOfCharSelectScene()
+    unloadLeftRightArrayOfCharSelectScene()
     
     continousGlowImage = nil
     firstRingImage = nil

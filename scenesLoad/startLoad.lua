@@ -1,9 +1,11 @@
 function loadObjectOfStartScene()
-
     sceneCounter = 0
-    subUpdateBlocks = {}
 
     SSV = {}
+
+    subUpdateBlocks = {}
+    subUpdateBlocks[1] = function() end
+    subUpdateBlocks[2] = function() end
 
     -- state data
     SSV["optionTextPositions"] = {700,657,728,723,684}
@@ -340,13 +342,151 @@ function loadAudioSourceOfStartScene()
     bgmHighSource:setVolume(BGMVolume[0]/10)
     bgmLowSource:setVolume(0)
 end
-function loadSubBlockOfStartScene()
-    indiStateSubBlock = {}
-    indiStateSubBlock[1] = function() end
-    indiStateSubBlock[2] = function() end
+
+-- switch local logic and local array tranfer
+function loadSubSwitchesOfStartScene()
+    startSceneDPressSwtich = {
+        [0] = function()
+            love.audio.play(sceneOutSource) 
+            playerNumber = 1
+
+            initLinerAnimationWith(bgLoop,flashLinerAnim2)
+            initLinerAnimationWith(consoleDaboTrig,flashLinerAnim2)
+            initLinerAnimationWith(consoleText1,flashLinerAnim2)
+            initLinerAnimationWith(consoleText2,flashLinerAnim2)
+            initLinerAnimationWith(drrr,flashLinerAnim2)
+            initLinerAnimationWith(optionText,flashLinerAnim2)
+            initLinerAnimationWithOut(BGMVolume,bgmFlashoutAnim)
+            BGMVolume["Scal"] = BGMVolume[0]
+            audioAnimator(BGMVolume)
+            BGML2H()
+
+            consoleInsMark[4] = 0 
+            consoleInsMark["LCT"] = 0
+            breathDaboTrig[4] = 0
+            breathDaboTrig["LCT"] = 0
+
+            currentUpdateBlock = function() 
+                startSceneFlashOut()
+            end
+        end,
+        [1] = function()
+            love.audio.play(sceneOutSource)
+            playerNumber = 2
+
+            initLinerAnimationWith(bgLoop,flashLinerAnim2)
+            initLinerAnimationWith(consoleDaboTrig,flashLinerAnim2)
+            initLinerAnimationWith(consoleText1,flashLinerAnim2)
+            initLinerAnimationWith(consoleText2,flashLinerAnim2)
+            initLinerAnimationWith(drrr,flashLinerAnim2)
+            initLinerAnimationWith(optionText,flashLinerAnim2)
+            initLinerAnimationWithOut(BGMVolume,bgmFlashoutAnim)
+            BGMVolume["Scal"] = BGMVolume[0]
+            audioAnimator(BGMVolume)
+            BGML2H()
+
+            consoleInsMark[4] = 0 
+            consoleInsMark["LCT"] = 0
+            breathDaboTrig[4] = 0
+            breathDaboTrig["LCT"] = 0
+
+            currentUpdateBlock = function() 
+                startSceneFlashOut()
+            end
+        end,
+        [2] = function()
+            love.audio.play(toSubSource)
+            initLinerAnimationWith(shutter,flashLinerAnim1)
+            initLinerAnimationWith(configMenu,flashLinerAnim1)
+            initLinerAnimationWith(subStateDaboTrig,flashLinerAnim1)
+            subStateDaboTrig[1] = 470
+
+            currentUpdateBlock = function() 
+                O1ConfigSubSceneFlashIn()
+            end
+        end,
+        [3] = function()
+            love.audio.play(toSubSource)
+            applyRecord()
+            initLinerAnimationWith(shutter,flashLinerAnim1)
+            initLinerAnimationWith(recordTotalTime,flashLinerAnim1)
+            initLinerAnimationWith(timeNumber1,flashLinerAnim1)
+            initLinerAnimationWith(timeNumber2,flashLinerAnim1)
+            initLinerAnimationWith(timeNumber3,flashLinerAnim1)
+            initLinerAnimationWith(timeNumber4,flashLinerAnim1)
+            initLinerAnimationWith(timeNumber5,flashLinerAnim1)
+            initLinerAnimationWith(timeNumber6,flashLinerAnim1)
+            initLinerAnimationWith(subStateDaboTrig,flashLinerAnim1)
+            subStateDaboTrig[1] = 500
+
+            currentUpdateBlock = function() 
+                O1RecordSubSceneFlashIn()
+            end
+        end,
+        [4] = function()
+            love.audio.play(sceneOutSource)
+
+            initLinerAnimationWith(bgLoop,flashLinerAnim2)
+            initLinerAnimationWith(consoleDaboTrig,flashLinerAnim2)
+            initLinerAnimationWith(consoleText1,flashLinerAnim2)
+            initLinerAnimationWith(consoleText2,flashLinerAnim2)
+            initLinerAnimationWith(drrr,flashLinerAnim2)
+            initLinerAnimationWith(optionText,flashLinerAnim2)
+            initLinerAnimationWithOut(BGMVolume,bgmFlashoutAnim)
+            BGMVolume["Scal"] = BGMVolume[0]
+            audioAnimator(BGMVolume)
+            BGML2H()
+
+            consoleInsMark[4] = 0 
+            consoleInsMark["LCT"] = 0
+            breathDaboTrig[4] = 0
+            breathDaboTrig["LCT"] = 0
+
+            currentUpdateBlock = function() 
+                startSceneFlashOut()
+            end
+        end
+    }
+    startSceneFlashOutSwtich = {
+        [0] = function()
+            daboTrig[4] = 1
+            initFrameAnimationWith(daboTrig,daboTrigAnim1)
+            love.audio.play(startLoadSource)
+            currentUpdateBlock = function() 
+                charSelectSceneLoadFlashInAnim()
+                gameMode = 0
+            end
+            currentDrawBlock = function()
+                loadSceneDraw()
+            end
+        end,
+        [1] = function()
+            daboTrig[4] = 1
+            initFrameAnimationWith(daboTrig,daboTrigAnim1)
+            love.audio.play(startLoadSource)
+            currentUpdateBlock = function() 
+                charSelectSceneLoadFlashInAnim()
+                gameMode = 1
+            end
+            currentDrawBlock = function()
+                loadSceneDraw()
+            end
+        end,
+        [4] = function()
+            currentUpdateBlock = function() 
+                love.event.quit()
+            end
+            currentDrawBlock = function()
+
+            end
+        end
+    }
 end
+
 function unloadObjectOfStartScene()
-    SSV = nil
+    SSV = {}
+    subUpdateBlocks = {}
+
     bgLoop = nil
     consoleDaboTrig = nil
     consoleText1 = nil
@@ -407,8 +547,11 @@ function unloadAudioSourceOfStartScene()
     bgmHighSource = nil
     bgmLowSource = nil
 end
-function unloadSubBlockOfStartScene()
-    indiStateSubBlock = nil
+
+-- switch local logic and local array tranfer
+function unloadSubSwitchesOfStartScene()
+    startSceneDPressSwtich = nil
+    startSceneFlashOutSwtich = nil
 end
    
 -- order load and unload functions
@@ -419,7 +562,9 @@ function loadOrderOfStartScene(loadOrder)
             loadObjectOfStartScene()
             loadAnimOfStartScene()
             loadAudioSourceOfStartScene()
-            loadSubBlockOfStartScene()
+
+            loadSubSwitchesOfStartScene()
+
             BGLoopImage = {}
             textImage = {}
             consoleText1Image = {}
@@ -491,7 +636,8 @@ function unloadOrderOfStartScene()
     unloadObjectOfStartScene()
     unloadAnimOfStartScene()
     unloadAudioSourceOfStartScene()
-    unloadSubBlockOfStartScene()
+
+    unloadSubSwitchesOfStartScene()
     
     BGLoopImage = nil
     shutterImage = nil

@@ -127,7 +127,7 @@ function drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlur
 
     love.graphics.setCanvas(canvasRadialBlur)
     love.graphics.setShader(radialBlurShader)
-    radialBlurShader:send("startCood", { -230,-120 })
+    radialBlurShader:send("start_Cood", { -230,-120 })
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(canvas, 0, 0)
     love.graphics.setShader()

@@ -7,24 +7,14 @@ require("generalUpdateFunctions")
 require("generalReadAndWriteFunctions")
 
 require("drawFunctions")
-require("updateFunctions")
-require("objectAndAssetData")
 
+require("/scenesLogic/firstUpdateFunctions")
 require("/scenesLogic/dicAndLogoLogic")
 require("/scenesLogic/start/startLogic")
 require("/scenesLogic/charSelect/charSelectLogic")
 require("/scenesLogic/match/matchSceneLogic")
 
-
-require("/scenesLogic/start/O1Config")
-require("/scenesLogic/start/O1Record")
-require("/scenesLogic/start/O2AudioConfig")
-require("/scenesLogic/start/O2ControllerConfig")
-require("/scenesLogic/start/O2ResConfig")
-require("/scenesLogic/start/O3ControllerConfigIndi")
-
-require("/scenesLogic/charSelect/timerLogic")
-
+require("/scenesLoad/firstObjectAndAssetData")
 require("/scenesLoad/dicAndLogoLoad")
 require("/scenesLoad/startLoad")
 require("/scenesLoad/charSelectLoad")
@@ -86,6 +76,8 @@ function love.load()
 
     sceneCounter = 0
 
+    subUpdateBlocks = {}
+
     volumeReadSave()
     aquireCurrentRes()
     inputLoad()
@@ -96,7 +88,9 @@ function love.load()
     currentDrawBlock = function()
         
     end
-    subUpdateBlocks = {}
+    
+    --love.graphics.setDefaultFilter('linear','nearest')
+
 end
 function love.update()
     collectgarbage()

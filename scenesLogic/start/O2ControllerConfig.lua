@@ -15,10 +15,10 @@ function O2ControllerConfigFlashIn()
     and indiMark[2]["LCT"] > indiMark[2]["LA"]["length"]
     and subStateDaboTrig["LCT"] > subStateDaboTrig["LA"]["length"]
     and configMenu["LCT"] > configMenu["LA"]["length"] then
-        indiStateSubBlock[1] = function()
+        subUpdateBlocks[1] = function()
             O3ControllerConfigIndiOff(1)
         end
-        indiStateSubBlock[2] = function()
+        subUpdateBlocks[2] = function()
             O3ControllerConfigIndiOff(2)
         end
         currentUpdateBlock = function() 
@@ -33,8 +33,8 @@ function O2ControllerConfigDisplay()
         bgLoop[5] = 0
     end
     linerAnimator(breathDaboTrig)
-    indiStateSubBlock[1]()
-    indiStateSubBlock[2]()
+    subUpdateBlocks[1]()
+    subUpdateBlocks[2]()
     if commandState[1]["C"] == "Pressing" or commandState[2]["C"] == "Pressing" then 
         love.audio.play(UISFXSource)
         indiMark[1][4] = 0.5

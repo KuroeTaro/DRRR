@@ -1,3 +1,10 @@
+require("/scenesLogic/start/O1Config")
+require("/scenesLogic/start/O1Record")
+require("/scenesLogic/start/O2AudioConfig")
+require("/scenesLogic/start/O2ControllerConfig")
+require("/scenesLogic/start/O2ResConfig")
+require("/scenesLogic/start/O3ControllerConfigIndi")
+
 function startSceneLoadFlashInAnim()
     loadAssetFunction("loadThread/startSceneThread.lua",loadOrderOfStartScene,51)
     frameAnimator(daboTrig)
@@ -150,6 +157,11 @@ function startSceneDisplay()
         consoleInsMark["LCT"] = 0
         breathDaboTrig[4] = 0
         breathDaboTrig["LCT"] = 0
+    elseif commandState[1]["D"] == "Pressing" then 
+        local thisFunction = startSceneDPressSwtich[SSV["currentOptionID"]]
+        if thisFunction then 
+            thisFunction() 
+        end
     elseif (controllerState[0] ~= controllerState[2] or controllerState[1] ~= controllerState[3]) then 
         if controllerState[0] == 0 and controllerState[1] == 0 then 
             SSV["currentConsoleText2ID"] = 5
@@ -165,104 +177,6 @@ function startSceneDisplay()
         initFrameAnimationWith(consoleDaboTrig,daboTrigTwitchFrameAnim)
         consoleInsMark[4] = 0 
         consoleInsMark["LCT"] = 0
-    elseif commandState[1]["D"] == "Pressing" then 
-        if SSV["currentOptionID"] == 0 then
-            love.audio.play(sceneOutSource) 
-            playerNumber = 1
-
-            initLinerAnimationWith(bgLoop,flashLinerAnim2)
-            initLinerAnimationWith(consoleDaboTrig,flashLinerAnim2)
-            initLinerAnimationWith(consoleText1,flashLinerAnim2)
-            initLinerAnimationWith(consoleText2,flashLinerAnim2)
-            initLinerAnimationWith(drrr,flashLinerAnim2)
-            initLinerAnimationWith(optionText,flashLinerAnim2)
-            initLinerAnimationWithOut(BGMVolume,bgmFlashoutAnim)
-            BGMVolume["Scal"] = BGMVolume[0]
-            audioAnimator(BGMVolume)
-            BGML2H()
-
-            consoleInsMark[4] = 0 
-            consoleInsMark["LCT"] = 0
-            breathDaboTrig[4] = 0
-            breathDaboTrig["LCT"] = 0
-
-            currentUpdateBlock = function() 
-                startSceneFlashOut()
-            end
-        elseif SSV["currentOptionID"] == 1 then 
-            love.audio.play(sceneOutSource)
-            playerNumber = 2
-
-            initLinerAnimationWith(bgLoop,flashLinerAnim2)
-            initLinerAnimationWith(consoleDaboTrig,flashLinerAnim2)
-            initLinerAnimationWith(consoleText1,flashLinerAnim2)
-            initLinerAnimationWith(consoleText2,flashLinerAnim2)
-            initLinerAnimationWith(drrr,flashLinerAnim2)
-            initLinerAnimationWith(optionText,flashLinerAnim2)
-            initLinerAnimationWithOut(BGMVolume,bgmFlashoutAnim)
-            BGMVolume["Scal"] = BGMVolume[0]
-            audioAnimator(BGMVolume)
-            BGML2H()
-
-            consoleInsMark[4] = 0 
-            consoleInsMark["LCT"] = 0
-            breathDaboTrig[4] = 0
-            breathDaboTrig["LCT"] = 0
-
-            currentUpdateBlock = function() 
-                startSceneFlashOut()
-            end
-        elseif SSV["currentOptionID"] == 2 then 
-            love.audio.play(toSubSource)
-            initLinerAnimationWith(shutter,flashLinerAnim1)
-            initLinerAnimationWith(configMenu,flashLinerAnim1)
-            initLinerAnimationWith(subStateDaboTrig,flashLinerAnim1)
-            subStateDaboTrig[1] = 470
-
-            currentUpdateBlock = function() 
-                O1ConfigSubSceneFlashIn()
-            end
-        elseif SSV["currentOptionID"] == 3 then 
-            love.audio.play(toSubSource)
-            applyRecord()
-            initLinerAnimationWith(shutter,flashLinerAnim1)
-            initLinerAnimationWith(recordTotalTime,flashLinerAnim1)
-            initLinerAnimationWith(timeNumber1,flashLinerAnim1)
-            initLinerAnimationWith(timeNumber2,flashLinerAnim1)
-            initLinerAnimationWith(timeNumber3,flashLinerAnim1)
-            initLinerAnimationWith(timeNumber4,flashLinerAnim1)
-            initLinerAnimationWith(timeNumber5,flashLinerAnim1)
-            initLinerAnimationWith(timeNumber6,flashLinerAnim1)
-            initLinerAnimationWith(subStateDaboTrig,flashLinerAnim1)
-            subStateDaboTrig[1] = 500
-
-            currentUpdateBlock = function() 
-                O1RecordSubSceneFlashIn()
-            end
-
-        elseif SSV["currentOptionID"] == 4 then 
-            love.audio.play(sceneOutSource)
-
-            initLinerAnimationWith(bgLoop,flashLinerAnim2)
-            initLinerAnimationWith(consoleDaboTrig,flashLinerAnim2)
-            initLinerAnimationWith(consoleText1,flashLinerAnim2)
-            initLinerAnimationWith(consoleText2,flashLinerAnim2)
-            initLinerAnimationWith(drrr,flashLinerAnim2)
-            initLinerAnimationWith(optionText,flashLinerAnim2)
-            initLinerAnimationWithOut(BGMVolume,bgmFlashoutAnim)
-            BGMVolume["Scal"] = BGMVolume[0]
-            audioAnimator(BGMVolume)
-            BGML2H()
-
-            consoleInsMark[4] = 0 
-            consoleInsMark["LCT"] = 0
-            breathDaboTrig[4] = 0
-            breathDaboTrig["LCT"] = 0
-
-            currentUpdateBlock = function() 
-                startSceneFlashOut()
-            end
-        end
     end
 end
 function startSceneOptionTwitch()
@@ -332,35 +246,9 @@ function startSceneFlashOut()
         love.audio.stop()
         BGMVolume[0] = BGMVolume["Scal"]
         BGMVolume["Scal"] = 0
-        if SSV["currentOptionID"] == 4 then 
-            currentUpdateBlock = function() 
-                love.event.quit()
-            end
-            currentDrawBlock = function()
-
-            end
-        elseif SSV["currentOptionID"] == 0 then 
-            daboTrig[4] = 1
-            initFrameAnimationWith(daboTrig,daboTrigAnim1)
-            love.audio.play(startLoadSource)
-            currentUpdateBlock = function() 
-                charSelectSceneLoadFlashInAnim()
-                gameMode = 0
-            end
-            currentDrawBlock = function()
-                loadSceneDraw()
-            end
-        elseif SSV["currentOptionID"] == 1 then 
-            daboTrig[4] = 1
-            initFrameAnimationWith(daboTrig,daboTrigAnim1)
-            love.audio.play(startLoadSource)
-            currentUpdateBlock = function() 
-                charSelectSceneLoadFlashInAnim()
-                gameMode = 1
-            end
-            currentDrawBlock = function()
-                loadSceneDraw()
-            end
+        local thisFunction = startSceneFlashOutSwtich[SSV["currentOptionID"]]
+        if thisFunction then 
+            thisFunction() 
         end
         unloadOrderOfStartScene()
     end
