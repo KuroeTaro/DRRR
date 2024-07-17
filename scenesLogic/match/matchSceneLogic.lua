@@ -1,5 +1,5 @@
 function matchSelectSceneLoadFlashInAnim()
-    loadAssetFunction("loadThread/charSelectSceneThread.lua",loadOrderOfCharSelectScene,2)
+    loadAssetFunction("loadThread/matchSelectSceneUIThread.lua",loadOrderOfCharSelectScene,2)
     frameAnimator(daboTrig)
     if daboTrig["FCT"] > daboTrig["FA"]["length"] then
         love.audio.play(loadingSource)
@@ -12,7 +12,7 @@ function matchSelectSceneLoadFlashInAnim()
     end
 end
 function matchSelectSceneLoadAnim()
-    loadAssetFunction("loadThread/charSelectSceneThread.lua",loadOrderOfCharSelectScene,2)
+    loadAssetFunction("loadThread/matchSelectSceneUIThread.lua",loadOrderOfCharSelectScene,2)
     frameAnimator(insMark)
     localCounter(100)
     if counter > 100 and loadOnce == true then 

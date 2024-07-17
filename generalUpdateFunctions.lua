@@ -26,10 +26,6 @@ function loadAssetFunction(threadAddress,loadFunction,OrderSize)
                 loadOnce = true
             end
         end
-    elseif threadAddress == nil and loadFunction ~= nil and loadOnce == false then 
-        loadFunction()
-        loadOrder = 0
-        loadOnce = true
     end
 end
 

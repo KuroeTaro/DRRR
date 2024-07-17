@@ -1,62 +1,14 @@
 function loadObjectOfCharSelectScene()
     sceneCounter = 0
     subUpdateBlocks = {}
-    subUpdateBlocks[1] = function() end
+    subUpdateBlocks[1] = function() end -- player1
+    subUpdateBlocks[2] = function() end -- player2
+    subUpdateBlocks[3] = function() end -- timer
 
     SSV = {}
     SSV["timer"] = {6,0}
     SSV["frameTimer"] = -1
-
-    SSV["leftCharImagePos"] = {}
-    SSV["leftCharImagePos"][0] = {132,-2,0}
-    SSV["leftCharImagePos"][1] = {230,6,0}
-    SSV["leftCharImagePos"][2] = {248,-60,0}
-    SSV["leftCharImagePos"][3] = {106,-52,0}
-    SSV["leftCharImagePos"][4] = {-27,-35,0}
-    SSV["leftCharImagePos"][5] = {305,-3,0}
-    SSV["leftCharImagePos"][6] = {215,1,0}
-    SSV["leftCharImagePos"][7] = {256,-32,0}
-
-    SSV["leftCharTextPos"] = {}
-    SSV["leftCharTextPos"][0] = {210,-121,0.332}
-    SSV["leftCharTextPos"][1] = {205,-131,0.332}
-    SSV["leftCharTextPos"][2] = {422,-114,0.332}
-    SSV["leftCharTextPos"][3] = {375,-179,0.192}
-    SSV["leftCharTextPos"][4] = {-272,-96,0.332}
-    SSV["leftCharTextPos"][5] = {-280,-210,0.332}
-    SSV["leftCharTextPos"][6] = {193,-152,0.332}
-    SSV["leftCharTextPos"][7] = {264,-146,0.332}
-
-    SSV["rightCharImagePos"] = {}
-    SSV["rightCharImagePos"][0] = {797,-2,0}
-    SSV["rightCharImagePos"][1] = {1000,-2,0}
-    SSV["rightCharImagePos"][2] = {840,35,-0.244}
-    SSV["rightCharImagePos"][3] = {674,-30,0}
-    SSV["rightCharImagePos"][4] = {610,-12,0}
-    SSV["rightCharImagePos"][5] = {870,-4,0}
-    SSV["rightCharImagePos"][6] = {945,-3,0}
-    SSV["rightCharImagePos"][7] = {903,-32,0}
-
-    SSV["rightCharTextPos"] = {}
-    SSV["rightCharTextPos"][0] = {802,216,-0.401}
-    SSV["rightCharTextPos"][1] = {964,205,-0.332}
-    SSV["rightCharTextPos"][2] = {1016,182,-0.384}
-    SSV["rightCharTextPos"][3] = {1636,-56,0.332}
-    SSV["rightCharTextPos"][4] = {1291,-36,0.436}
-    SSV["rightCharTextPos"][5] = {1498,-154,0.332}
-    SSV["rightCharTextPos"][6] = {1023,171,-0.332}
-    SSV["rightCharTextPos"][7] = {995,170,-0.332}
-
-    SSV["iconCoverPos"] = {}
-    SSV["iconCoverPos"][0] = {0,570}
-    SSV["iconCoverPos"][1] = {192,570}
-    SSV["iconCoverPos"][2] = {405,512}
-    SSV["iconCoverPos"][3] = {603,349}
-    SSV["iconCoverPos"][4] = {765,168}
-    SSV["iconCoverPos"][5] = {921,120}
-    SSV["iconCoverPos"][6] = {1116,122}
-    SSV["iconCoverPos"][7] = {1327,121}
-
+    
     solidColor = {7/255,19/255,31/255,1,0}
     solidColor["FCT"] = 0
     solidColor["LCT"] = 0
