@@ -91,6 +91,10 @@ function initLinerAnimationWithOut(object,animation)
     object["LA"] = animation 
     object["LCT"] = 0 
 end
+function initPointLiner(object)
+    object["PLT"] = {0,0,0,0,0}
+    object["PLD"] = {0,0,0,0,0}
+end
 function maskPointAnimator(object)
     if  object["LA"][object["LCT"]] ~= nil then 
         for i = 1,12 do

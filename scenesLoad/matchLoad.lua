@@ -1,4 +1,4 @@
-function loadObjectOfCharSelectScene()
+function loadObjectOfMatchScene()
     sceneCounter = 0
     subUpdateBlocks = {}
     subUpdateBlocks[1] = function() end -- player1
@@ -8,212 +8,197 @@ function loadObjectOfCharSelectScene()
     SSV = {}
     SSV["timer"] = {6,0}
     SSV["frameTimer"] = -1
-    
+    -- giovana walking speed 10.0 takes 300f walk from c2c 
+    -- character width 210
+    -- gio in this game speed 10.5
+    SSV["sceneWidth"] = 3150.000 
+
+    -- UI object x y s transparent frame
     solidColor = {7/255,19/255,31/255,1,0}
-    solidColor["FCT"] = 0
-    solidColor["LCT"] = 0
-    solidColor["linerDelta"] = {0,0,0,0,0}
+    solidColor["PLT"] = {0,0,0,0,0}
+    solidColor["PLD"] = {0,0,0,0,0}
 
-    charSelectBG = {0,0,1,0,0}
-    charSelectBG["FCT"] = 0
-    charSelectBG["LCT"] = 0
-    charSelectBG["linerDelta"] = {0,0,0,0,0}
+    bgColor = {115/255,115/255,115/255,1,0}
+    bgColor["PLT"] = {0,0,0,0,0}
+    bgColor["PLD"] = {0,0,0,0,0}
 
-    movieCover = {0,0,1,0,0}
-    movieCover["FCT"] = 0
-    movieCover["LCT"] = 0
-    movieCover["linerDelta"] = {0,0,0,0,0}
+    ODLightP1 = {131,75,1,0,0}
+    ODLightP1["PLT"] = {0,0,0,0,0}
+    ODLightP1["PLD"] = {0,0,0,0,0}
 
-    firstGlow = {0,0,1,0,0}
-    firstGlow["FCT"] = 0
-    firstGlow["LCT"] = 0
-    firstGlow["linerDelta"] = {0,0,0,0,0}
+    ODLightP2 = {1469,75,1,0,0}
+    ODLightP2["PLT"] = {0,0,0,0,0}
+    ODLightP2["PLD"] = {0,0,0,0,0}
 
-    firstRing = {0,0,1,0,0}
-    firstRing["FCT"] = 0
-    firstRing["LCT"] = 0
-    firstRing["linerDelta"] = {0,0,0,0,0}
+    roundTimer1 = {780,85,1,0,0}
+    roundTimer1["PLT"] = {0,0,0,0,0}
+    roundTimer1["PLD"] = {0,0,0,0,0}
 
-    continousGlow = {0,0,1,0,0}
-    continousGlow[4] = {0,0.5,1,0}
-    continousGlow["FCT"] = 0
-    continousGlow["LCT"] = 0
-    continousGlow["linerDelta"] = 0
-    continousGlow["layer"] = {0,1,2}
+    roundTimer2 = {803,85,1,0,0}
+    roundTimer2["PLT"] = {0,0,0,0,0}
+    roundTimer2["PLD"] = {0,0,0,0,0}
 
-    secondRing = {0,0,1,0,0}
-    secondRing["FCT"] = 0
-    secondRing["LCT"] = 0
-    secondRing["linerDelta"] = {0,0,0,0,0}
+    abilityLightP1 = {375,102,1,0,0}
+    abilityLightP1["PLT"] = {0,0,0,0,0}
+    abilityLightP1["PLD"] = {0,0,0,0,0}
 
-    timeNumber1 = {1321,815,1,0,6}
-    timeNumber1["FCT"] = 0
-    timeNumber1["LCT"] = 0
-    timeNumber1["linerDelta"] = {0,0,0,0,0}
+    abilityLightP2 = {1225,102,1,0,0}
+    abilityLightP2["PLT"] = {0,0,0,0,0}
+    abilityLightP2["PLD"] = {0,0,0,0,0}
 
-    timeNumber2 = {1334,815,1,0,0}
-    timeNumber2["FCT"] = 0
-    timeNumber2["LCT"] = 0
-    timeNumber2["linerDelta"] = {0,0,0,0,0}
+    SPStatusP1 = {1469,75,1,0,0}
+    SPStatusP1["PLT"] = {0,0,0,0,0}
+    SPStatusP1["PLD"] = {0,0,0,0,0}
 
-    ANRIIcon = {405,512,1,0,0}
-    ANRIIcon["FCT"] = 0
-    ANRIIcon["LCT"] = 0
-    ANRIIcon["linerDelta"] = {0,0,0,0,0}
-    ANRIIcon["res"] = {280,280}
+    SPStatusP2 = {1469,75,1,0,0}
+    SPStatusP2["PLT"] = {0,0,0,0,0}
+    SPStatusP2["PLD"] = {0,0,0,0,0}
 
-    ANRIIconChar = {0,0,1,1,0}
-    ANRIIconChar["FCT"] = 0
-    ANRIIconChar["LCT"] = 0
-    ANRIIconChar["linerDelta"] = {0,0,0,0,0}
+    healthLightP1 = {175,65,1,0,0}
+    healthLightP1["PLT"] = {0,0,0,0,0}
+    healthLightP1["PLD"] = {0,0,0,0,0}
 
-    CKGIcon = {921,120,1,0,0}
-    CKGIcon["FCT"] = 0
-    CKGIcon["LCT"] = 0
-    CKGIcon["linerDelta"] = {0,0,0,0,0}
-    CKGIcon["res"] = {280,280}
+    healthLightP2 = {1425,65,1,0,0}
+    healthLightP2["PLT"] = {0,0,0,0,0}
+    healthLightP2["PLD"] = {0,0,0,0,0}
 
-    CKGIconChar = {0,0,1,1,0}
-    CKGIconChar["FCT"] = 0
-    CKGIconChar["LCT"] = 0
-    CKGIconChar["linerDelta"] = {0,0,0,0,0}
+    healthFadeLightP1 = {175,65,1,0,0}
+    healthFadeLightP1["PLT"] = {0,0,0,0,0}
+    healthFadeLightP1["PLD"] = {0,0,0,0,0}
 
-    ERIKAWK3Icon = {0,570,1,0,0}
-    ERIKAWK3Icon["FCT"] = 0
-    ERIKAWK3Icon["LCT"] = 0
-    ERIKAWK3Icon["linerDelta"] = {0,0,0,0,0}
-    ERIKAWK3Icon["res"] = {335,210}
+    healthFadeLightP2 = {1425,65,1,0,0}
+    healthFadeLightP2["PLT"] = {0,0,0,0,0}
+    healthFadeLightP2["PLD"] = {0,0,0,0,0}
 
-    ERIKAWK3IconChar = {0,0,1,1,0}
-    ERIKAWK3IconChar["FCT"] = 0
-    ERIKAWK3IconChar["LCT"] = 0
-    ERIKAWK3IconChar["linerDelta"] = {0,0,0,0,0}
+    heatLightP1 = {295,124,1,0,0}
+    heatLightP1["PLT"] = {0,0,0,0,0}
+    heatLightP1["PLD"] = {0,0,0,0,0}
 
-    IZYIcon = {603,349,1,0,0}
-    IZYIcon["FCT"] = 0
-    IZYIcon["LCT"] = 0
-    IZYIcon["linerDelta"] = {0,0,0,0,0}
-    IZYIcon["res"] = {260,375}
-
-    IZYIconChar = {0,0,1,1,0}
-    IZYIconChar["FCT"] = 0
-    IZYIconChar["LCT"] = 0
-    IZYIconChar["linerDelta"] = {0,0,0,0,0}
-
-    KTCIcon = {192,570,1,0,0}
-    KTCIcon["FCT"] = 0
-    KTCIcon["LCT"] = 0
-    KTCIcon["linerDelta"] = {0,0,0,0,0}
-    KTCIcon["res"] = {335,215}
-
-    KTCIconChar = {0,0,1,1,0}
-    KTCIconChar["FCT"] = 0
-    KTCIconChar["LCT"] = 0
-    KTCIconChar["linerDelta"] = {0,0,0,0,0}
-
-    SHINRAIcon = {1116,122,1,0,0}
-    SHINRAIcon["FCT"] = 0
-    SHINRAIcon["LCT"] = 0
-    SHINRAIcon["linerDelta"] = {0,0,0,0,0}
-    SHINRAIcon["res"] = {335,215}
-
-    SHINRAIconChar = {0,0,1,1,0}
-    SHINRAIconChar["FCT"] = 0
-    SHINRAIconChar["LCT"] = 0
-    SHINRAIconChar["linerDelta"] = {0,0,0,0,0}
-
-    SRTIcon = {1327,121,1,0,0}
-    SRTIcon["FCT"] = 0
-    SRTIcon["LCT"] = 0
-    SRTIcon["linerDelta"] = {0,0,0,0,0}
-    SRTIcon["res"] = {335,210}
-
-    SRTIconChar = {0,0,1,0,0}
-    SRTIconChar["FCT"] = 0
-    SRTIconChar["LCT"] = 0
-    SRTIconChar["linerDelta"] = {0,0,0,0,0}
-
-    SZOIcon = {765,168,1,0,0}
-    SZOIcon["FCT"] = 0
-    SZOIcon["LCT"] = 0
-    SZOIcon["linerDelta"] = {0,0,0,0,0}
-    SZOIcon["res"] = {250,400}
-
-    SZOIconChar = {0,0,1,0,0}
-    SZOIconChar["FCT"] = 0
-    SZOIconChar["LCT"] = 0
-    SZOIconChar["linerDelta"] = {0,0,0,0,0}
-
-    charSelectLeft = {-33,110,1,0,3}
-    charSelectLeft["FCT"] = 0
-    charSelectLeft["LCT"] = 0
-    charSelectLeft["linerDelta"] = {0,0,0,0,0}
-    charSelectLeft["state"] = "flashIn"
-
-    charSelectLeftChar = {106,-52,1,1,0}
-    charSelectLeftChar["FCT"] = 0
-    charSelectLeftChar["LCT"] = 0
-    charSelectLeftChar["linerDelta"] = {0,0,0,0,3}
-    charSelectLeftChar["r"] = 0
+    heatLightP2 = {1305,124,1,0,0}
+    heatLightP2["PLT"] = {0,0,0,0,0}
+    heatLightP2["PLD"] = {0,0,0,0,0}
     
-    charSelectLeftText = {375,-179,1,1,0}
-    charSelectLeftText["FCT"] = 0
-    charSelectLeftText["LCT"] = 0
-    charSelectLeftText["linerDelta"] = {0,0,0,0,3}
-    charSelectLeftText["r"] = 0.192
+    heatIndicatorP1 = {675,124,1,0,0}
+    heatIndicatorP1["PLT"] = {0,0,0,0,0}
+    heatIndicatorP1["PLD"] = {0,0,0,0,0}
 
-    charSelectRight = {-25,335,1,0,4}
-    charSelectRight["FCT"] = 0
-    charSelectRight["LCT"] = 0
-    charSelectRight["linerDelta"] = {0,0,0,0,0}
-    charSelectRight["state"] = "flashIn"
+    heatIndicatorP2 = {925,124,1,0,0}
+    heatIndicatorP2["PLT"] = {0,0,0,0,0}
+    heatIndicatorP2["PLD"] = {0,0,0,0,0}
 
-    charSelectRightChar = {610,-12,1,1,0}
-    charSelectRightChar["FCT"] = 0
-    charSelectRightChar["LCT"] = 0
-    charSelectRightChar["linerDelta"] = {0,0,0,0,4}
-    charSelectRightChar["r"] = 0
+    ODIndicatorP1 = {1305,102,1,0,0}
+    ODIndicatorP1["PLT"] = {0,0,0,0,0}
+    ODIndicatorP1["PLD"] = {0,0,0,0,0}
 
-    charSelectRightText = {1291,-36,1,1,0}
-    charSelectRightText["FCT"] = 0
-    charSelectRightText["LCT"] = 0
-    charSelectRightText["linerDelta"] = {0,0,0,0,4}
-    charSelectRightText["r"] = 0.436
+    ODIndicatorP2 = {205,102,1,0,0}
+    ODIndicatorP2["PLT"] = {0,0,0,0,0}
+    ODIndicatorP2["PLD"] = {0,0,0,0,0}
 
-    iconCover1 = {603,349,1,0,3,0}
-    iconCover1["FCT"] = 0
-    iconCover1["LCT"] = 0
-    iconCover1["linerDelta"] = {0,0,0,0,4}
+    ODTimerP1 = {192,149,1,0,0}
+    ODTimerP1["PLT"] = {0,0,0,0,0}
+    ODTimerP1["PLD"] = {0,0,0,0,0}
 
-    iconCover2 = {765,168,1,0,4,0}
-    iconCover2["FCT"] = 0
-    iconCover2["LCT"] = 0
-    iconCover2["linerDelta"] = {0,0,0,0,0}
+    ODTimerP2 = {1290,149,1,0,0}
+    ODTimerP2["PLT"] = {0,0,0,0,0}
+    ODTimerP2["PLD"] = {0,0,0,0,0}
 
-    glowAlphaPoint = {0,0, 0,262, 384,900, 1600,900, 1600,149, 587,0}
-    glowAlphaPoint["FCT"] = 0
-    glowAlphaPoint["LCT"] = 0
-    glowAlphaPoint["linerDelta"] = {0,0, 0,0, 0,0, 0,0, 0,0, 0,0}
+    riskLightP1 = {195,127,1,0,0}
+    riskLightP1["PLT"] = {0,0,0,0,0}
+    riskLightP1["PLD"] = {0,0,0,0,0}
 
-    controlSelectText1 = {90,470,1,0,0}
-    controlSelectText1["FCT"] = 0
-    controlSelectText1["LCT"] = 0
-    controlSelectText1["linerDelta"] = {0,0,0,0,0}
+    riskLightP2 = {1405,127,1,0,0}
+    riskLightP2["PLT"] = {0,0,0,0,0}
+    riskLightP2["PLD"] = {0,0,0,0,0}
 
-    controlSelectText2 = {1236,700,1,0,0}
-    controlSelectText2["FCT"] = 0
-    controlSelectText2["LCT"] = 0
-    controlSelectText2["linerDelta"] = {0,0,0,0,0}
+    matchPointLightP1 = {717,85,1,0,0}
+    matchPointLightP1["PLT"] = {0,0,0,0,0}
+    matchPointLightP1["PLD"] = {0,0,0,0,0}
 
-    controlSelectBar1 = {55,470,1,0,0}
-    controlSelectBar1["FCT"] = 0
-    controlSelectBar1["LCT"] = 0
-    controlSelectBar1["linerDelta"] = {0,0,0,0,0}
+    matchPointLightP2 = {883,85,1,0,0}
+    matchPointLightP2["PLT"] = {0,0,0,0,0}
+    matchPointLightP2["PLD"] = {0,0,0,0,0}
 
-    controlSelectBar2 = {1545,700,1,0,0}
-    controlSelectBar2["FCT"] = 0
-    controlSelectBar2["LCT"] = 0
-    controlSelectBar2["linerDelta"] = {0,0,0,0,0}
+    roundCounterP1 = {883,85,1,0,0}
+    roundCounterP1["PLT"] = {0,0,0,0,0}
+    roundCounterP1["PLD"] = {0,0,0,0,0}
+
+    roundCounterP2 = {883,85,1,0,0}
+    roundCounterP2["PLT"] = {0,0,0,0,0}
+    roundCounterP2["PLD"] = {0,0,0,0,0}
+
+    UIUpper = {0,0,1,0,0}
+    UIUpper["PLT"] = {0,0,0,0,0}
+    UIUpper["PLD"] = {0,0,0,0,0}
+
+    -- Gauge
+
+    ODGaugeP1 = {131,75,1,0,0}
+    ODGaugeP1["PLT"] = {0,0,0,0,0}
+    ODGaugeP1["PLD"] = {0,0,0,0,0}
+
+    ODGaugeP2 = {1469,75,1,0,0}
+    ODGaugeP2["PLT"] = {0,0,0,0,0}
+    ODGaugeP2["PLD"] = {0,0,0,0,0}
+
+    abilityGaugeP1 = {375,102,1,0,0}
+    abilityGaugeP1["PLT"] = {0,0,0,0,0}
+    abilityGaugeP1["PLD"] = {0,0,0,0,0}
+
+    abilityGaugeP2 = {1225,102,1,0,0}
+    abilityGaugeP2["PLT"] = {0,0,0,0,0}
+    abilityGaugeP2["PLD"] = {0,0,0,0,0}
+
+    SPStatusP1 = {1469,75,1,0,0}
+    SPStatusP1["PLT"] = {0,0,0,0,0}
+    SPStatusP1["PLD"] = {0,0,0,0,0}
+
+    SPStatusP2 = {1469,75,1,0,0}
+    SPStatusP2["PLT"] = {0,0,0,0,0}
+    SPStatusP2["PLD"] = {0,0,0,0,0}
+
+    healthGaugeP1 = {175,65,1,0,0}
+    healthGaugeP1["PLT"] = {0,0,0,0,0}
+    healthGaugeP1["PLD"] = {0,0,0,0,0}
+
+    healthGaugeP2 = {1425,65,1,0,0}
+    healthGaugeP2["PLT"] = {0,0,0,0,0}
+    healthGaugeP2["PLD"] = {0,0,0,0,0}
+
+    heatGaugeP1 = {295,124,1,0,0}
+    heatGaugeP1["PLT"] = {0,0,0,0,0}
+    heatGaugeP1["PLD"] = {0,0,0,0,0}
+
+    heatGaugeP2 = {1305,124,1,0,0}
+    heatGaugeP2["PLT"] = {0,0,0,0,0}
+    heatGaugeP2["PLD"] = {0,0,0,0,0}
+
+    riskGaugeP1 = {195,127,1,0,0}
+    riskGaugeP1["PLT"] = {0,0,0,0,0}
+    riskGaugeP1["PLD"] = {0,0,0,0,0}
+
+    riskGaugeP2 = {1405,127,1,0,0}
+    riskGaugeP2["PLT"] = {0,0,0,0,0}
+    riskGaugeP2["PLD"] = {0,0,0,0,0}
+
+    matchPointGaugeP1 = {717,85,1,0,0}
+    matchPointGaugeP1["PLT"] = {0,0,0,0,0}
+    matchPointGaugeP1["PLD"] = {0,0,0,0,0}
+
+    matchPointGaugeP2 = {883,85,1,0,0}
+    matchPointGaugeP2["PLT"] = {0,0,0,0,0}
+    matchPointGaugeP2["PLD"] = {0,0,0,0,0}
+
+    -- 3D object x y z 图片素材宽度 图片素材高度 sx sy frame
+    -- 3D object Character 不采用 图片素材宽度 图片素材高度
+    -- 直接从frame数据提取
+    -- Character bool值用于判定是否浮空
+    -- 浮空状态后如果box和地面接触则判定为落地 继承hitstun
+    -- 落地后会将object的Y值强制设定为固定值 每个角色根据落地恢复动画的不同而有所差异
+
+    camera = {0,0,-700}
+    camera["PLT"] = {0,0,0}
+    camera["PLD"] = {0,0,0}
+
 end
 function loadAnimOfCharSelectScene()
 

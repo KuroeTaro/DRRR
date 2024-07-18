@@ -176,3 +176,27 @@ function drawXInvertOneImageUI(obejct,image)
     love.graphics.draw(image,x,y,0,-s,s)
     love.graphics.setColor(1, 1, 1, 1)
 end 
+function camera_obj_draw(camera,object,image)
+    -- object x y z 图片素材宽度 图片素材高度 sx sy
+    -- x y z 锚点都在中心
+    -- camera x y z
+    local scale = 800/(object[3]-camera[3])
+    local coodRes = {scale*(object[1]-camera[1])+800-scale/2*(object[4]),scale*(object[2]-camera[2])+450-scale/2*(object[5])}
+    local x = resolutionCorrection(coodRes[1])
+    local y = resolutionCorrection(coodRes[2])
+    local sx = resolutionCorrection(scale*object[6])
+    local sy = resolutionCorrection(scale*object[7])
+    love.graphics.draw(image,x,y,0,sx,sy)
+end
+function camera_obj_array_draw(camera,object,image)
+    -- object x y z 图片素材宽度 图片素材高度 sx sy frame
+    -- x y z 锚点都在中心
+    -- camera x y z
+    local scale = 800/(object[3]-camera[3])
+    local coodRes = {scale*(object[1]-camera[1])+800-scale/2*(object[4]),scale*(object[2]-camera[2])+450-scale/2*(object[5])}
+    local x = resolutionCorrection(coodRes[1])
+    local y = resolutionCorrection(coodRes[2])
+    local sx = resolutionCorrection(scale*object[6])
+    local sy = resolutionCorrection(scale*object[7])
+    love.graphics.draw(image[object[9]],x,y,0,sx,sy)
+end
