@@ -103,7 +103,7 @@ function drawCharSelectInCharSelectAfterFlashIn(object,imageObj,textObj,image,te
     love.graphics.draw(res,x,y,0,s,s)
     love.graphics.setColor(1, 1, 1, 1)
 end
-function drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlurShader,object)
+function drawSecondGlowInCharSelect(glowAlphaPoint,chatSelectFractalNoiseShader,radialBlurShader,object)
     local x = resolutionCorrection(object[1])
     local y = resolutionCorrection(object[2])
     local s = resolutionCorrection(object[3])
@@ -117,8 +117,8 @@ function drawSecondGlowInCharSelect(glowAlphaPoint,fractalNoiseShader,radialBlur
     love.graphics.setCanvas()
 
     love.graphics.setCanvas(canvas)
-    love.graphics.setShader(fractalNoiseShader)
-    fractalNoiseShader:send("time", love.timer.getTime())
+    love.graphics.setShader(chatSelectFractalNoiseShader)
+    chatSelectFractalNoiseShader:send("time", love.timer.getTime())
     love.graphics.rectangle("fill", 0, 0, 1600, 900)
     love.graphics.setShader()
     love.graphics.setCanvas()

@@ -13,6 +13,36 @@ function loadObjectOfMatchScene()
     -- gio in this game speed 10.5
     SSV["sceneWidth"] = 3150.000 
 
+    SSV["playerHealth"] = {10000,10000} -- 400*25
+    SSV["playerGuts"] = {1.0,1.0}
+    -- SSV["playerGutsMutiplierFrom"] = {
+    --  0 = {0.97,0.92,0.89,0.84,0.75,0.66,0.56}
+    --  1 = {0.96,0.91,0.87,0.82,0.73,0.63,0.53}
+    --  2 = {0.95,0.90,0.85,0.80,0.70,0.60,0.50}
+    --  3 = {0.94,0.89,0.83,0.78,0.67,0.57,0.47}
+    --  4 = {0.93,0.88,0.81,0.76,0.64,0.53,0.44}
+    --  5 = {0.92,0.97,0.79,0.74,0.60,0.50,0.41}
+    --      70%  60% 50% 40% 30% 20% 10%
+    -- }
+    SSV["playerHeat"] = {0,0} -- max at 10000
+    SSV["playerHeatGainMultiplier"] = {0,0} -- max at 480f
+    SSV["playerODGuage"] = {15000,15000}
+    SSV["playerODTime"] = {0,0} -- max at 480f
+    SSV["playerODGainMultiplier"] = {0,0} -- max at 480f
+    SSV["playerAbility"] = {15000,15000}
+    SSV["playerAbilityGainMultiplier"] = {1.0,1.0}
+    SSV["playerStatus"] = {"normal","normal"} -- Positive bounus -- negative penalty -- danger
+    SSV["playerStatusTimer"] = {0.0,0.0}
+    SSV["playerRisk"] = {0,0} -- max at 12500
+    SSV["playerRiskGainMultiplier"] = {1.0,1.0}
+
+    SSV["playerDamagedMultiplier"] = {1.0,1.0}
+    SSV["playerGutsMultiplier"] = {1.0,1.0}
+    SSV["playerRiskMultiplier"] = {1.0,1.0}
+
+    SSV["roundCounter"] = {0,0} -- max at 2 for now
+
+
     -- UI object x y s transparent frame
     solidColor = {7/255,19/255,31/255,1,0}
     solidColor["PLT"] = {0,0,0,0,0}
@@ -189,8 +219,8 @@ function loadObjectOfMatchScene()
     matchPointGaugeP2["PLD"] = {0,0,0,0,0}
 
     -- 3D object x y z 图片素材宽度 图片素材高度 sx sy frame
-    -- 3D object Character 不采用 图片素材宽度 图片素材高度
-    -- 直接从frame数据提取
+    -- 3D object Character 的 图片素材宽度 图片素材高度
+    -- 从frame数据提取更新
     -- Character bool值用于判定是否浮空
     -- 浮空状态后如果box和地面接触则判定为落地 继承hitstun
     -- 落地后会将object的Y值强制设定为固定值 每个角色根据落地恢复动画的不同而有所差异
@@ -199,646 +229,106 @@ function loadObjectOfMatchScene()
     camera["PLT"] = {0,0,0}
     camera["PLD"] = {0,0,0}
 
-end
-function loadAnimOfCharSelectScene()
+    stageGlow = {800,-770,0}
+    stageGlow["PLT"] = {0,0,0}
+    stageGlow["PLD"] = {0,0,0}
 
-    solidFlashInLinerAnim1 = {}
-    solidFlashInLinerAnim1[0] = {0,0,0,-0.3,0}
-    solidFlashInLinerAnim1[1] = {0,0,0,-0.2,0}
-    solidFlashInLinerAnim1[2] = {0,0,0,-0.1,0}
-    solidFlashInLinerAnim1[3] = {0,0,0,-0.1,0}
-    solidFlashInLinerAnim1[4] = {0,0,0,-0.07,0}
-    solidFlashInLinerAnim1[5] = {0,0,0,-0.05,0}
-    solidFlashInLinerAnim1[6] = {0,0,0,-0.05,0}
-    solidFlashInLinerAnim1[7] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim1[8] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim1[9] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim1[10] = {0,0,0,-0.02,0}
-    solidFlashInLinerAnim1[11] = {0,0,0,-0.01,0}
-    solidFlashInLinerAnim1[12] = {0,0,0,-0,005,0}
-    solidFlashInLinerAnim1[13] = {0,0,0,-0.003,0}
-    solidFlashInLinerAnim1[14] = {0,0,0,-0.002,0}
-    solidFlashInLinerAnim1["length"] = 14
-    solidFlashInLinerAnim1["loopType"] = "const"
+    --readCharBaseData(selectedChar)
+    p1Char = {-300,103,0,1.30,1.25,0}
+    p1Char["state"] = "stand_Idle"
+    p1Char["PLT"] = {0,0,0,0,0,0}
+    p1Char["PLD"] = {0,0,0,0,0,0}
+    p1Char["longShadow"] = {{},{}}
+    p1Char["fadeShadow"] = {}
 
-    solidFlashInLinerAnim2 = {}
-    solidFlashInLinerAnim2[0] = {0,0,0,-0.01,0}
-    solidFlashInLinerAnim2[1] = {0,0,0,-0.06,0}
-    solidFlashInLinerAnim2[2] = {0,0,0,-0.12,0}
-    solidFlashInLinerAnim2[3] = {0,0,0,-0.25,0}
-    solidFlashInLinerAnim2[4] = {0,0,0,-0.56,0}
-    solidFlashInLinerAnim2["length"] = 4
-    solidFlashInLinerAnim2["loopType"] = "const"
+    p2Char = {300,103,0,1.30,1.25,0}
+    p2Char["state"] = "stand_Idle"
+    p2Char["PLT"] = {0,0,0,0,0,0}
+    p2Char["PLD"] = {0,0,0,0,0,0}
+    p2Char["longShadow"] = {{},{}}
+    p2Char["fadeShadow"] = {}
 
-    solidFlashInLinerAnim3 = {}
-    solidFlashInLinerAnim3[0] = {0,0,0,-0.002,0}
-    solidFlashInLinerAnim3[1] = {0,0,0,-0.003,0}
-    solidFlashInLinerAnim3[2] = {0,0,0,-0.005,0}
-    solidFlashInLinerAnim3[3] = {0,0,0,-0.01,0}
-    solidFlashInLinerAnim3[4] = {0,0,0,-0.02,0}
-    solidFlashInLinerAnim3[5] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim3[6] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim3[7] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim3[8] = {0,0,0,-0.05,0}
-    solidFlashInLinerAnim3[9] = {0,0,0,-0.05,0}
-    solidFlashInLinerAnim3[10] = {0,0,0,-0.07,0}
-    solidFlashInLinerAnim3[11] = {0,0,0,-0.1,0}
-    solidFlashInLinerAnim3[12] = {0,0,0,-0.1,0}
-    solidFlashInLinerAnim3[13] = {0,0,0,-0.2,0}
-    solidFlashInLinerAnim3[14] = {0,0,0,-0.3,0}
-    solidFlashInLinerAnim3["length"] = 14
-    solidFlashInLinerAnim3["loopType"] = "const"
+    ground = {0,470,200,1600,300,3.0,1.0,0}
+    ground["PLT"] = {0,0,0,0,0,0,0,0}
+    ground["PLD"] = {0,0,0,0,0,0,0,0}
 
-    solidFlashOutLinerAnim = {}
-    solidFlashOutLinerAnim[0] = {0,0,0,0.002,0}
-    solidFlashOutLinerAnim[1] = {0,0,0,0.003,0}
-    solidFlashOutLinerAnim[2] = {0,0,0,0.005,0}
-    solidFlashOutLinerAnim[3] = {0,0,0,0.01,0}
-    solidFlashOutLinerAnim[4] = {0,0,0,0.02,0}
-    solidFlashOutLinerAnim[5] = {0,0,0,0.03,0}
-    solidFlashOutLinerAnim[6] = {0,0,0,0.03,0}
-    solidFlashOutLinerAnim[7] = {0,0,0,0.03,0}
-    solidFlashOutLinerAnim[8] = {0,0,0,0.05,0}
-    solidFlashOutLinerAnim[9] = {0,0,0,0.05,0}
-    solidFlashOutLinerAnim[10] = {0,0,0,0.07,0}
-    solidFlashOutLinerAnim[11] = {0,0,0,0.1,0}
-    solidFlashOutLinerAnim[12] = {0,0,0,0.1,0}
-    solidFlashOutLinerAnim[13] = {0,0,0,0.2,0}
-    solidFlashOutLinerAnim[14] = {0,0,0,0.3,0}
-    solidFlashOutLinerAnim["length"] = 14
-    solidFlashOutLinerAnim["loopType"] = "const"
+    markLine_0 = {1950,410,300,8,425,0.8,1.0,0}
+    markLine_0["PLT"] = {0,0,0,0,0,0,0,0}
+    markLine_0["PLD"] = {0,0,0,0,0,0,0,0}
 
-    firstRingFlashInFrameAnim = {}
-    firstRingFlashInFrameAnim[2] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[4] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[6] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[8] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[10] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[12] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[14] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[16] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[18] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[20] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[22] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[24] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[26] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[28] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[30] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[32] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim[34] = {0,0,0,0,1}
-    firstRingFlashInFrameAnim["length"] = 34
-    firstRingFlashInFrameAnim["loopType"] = "const"
+    markLine_1 = {-1950,410,300,8,425,0.8,1.0,0}
+    markLine_1["PLT"] = {0,0,0,0,0,0,0,0}
+    markLine_1["PLD"] = {0,0,0,0,0,0,0,0}
 
-    firstGlowFlashInLinerAnim = {}
-    firstGlowFlashInLinerAnim[0] = {0,0,0,0.04,0}
-    firstGlowFlashInLinerAnim[5] = {0,0,0,0.16,0}
-    firstGlowFlashInLinerAnim["length"] = 9
-    firstGlowFlashInLinerAnim["loopType"] = "const"
+    markLine_2 = {1025,410,300,8,425,0.8,1.0,0}
+    markLine_2["PLT"] = {0,0,0,0,0,0,0,0}
+    markLine_2["PLD"] = {0,0,0,0,0,0,0,0}
 
-    glowAlphaPointAnim = {}
-    glowAlphaPointAnim[0] = {0,0, 0,-7.5, 14,0, 0,0, 0,12.5, -28,0}
-    glowAlphaPointAnim[2] = {0,0, 0,-4, 7,0, 0,0, 0,6, -14,0}
-    glowAlphaPointAnim[5] = {0,0, 0,-2, 4,0, 0,0, 0,3.4, -7.4,0}
-    glowAlphaPointAnim[10] = {0,0, 0,-1, 2.4,0, 0,0, 0,2.2, -4.8,0}
-    glowAlphaPointAnim[15] = {0,0, 0,-0.8, 1.6,0, 0,0, 0,1.4, -3.2,0}
-    glowAlphaPointAnim[20] = {0,0, 0,-0.6, 1,0, 0,0, 0,1, -2.2,0}
-    glowAlphaPointAnim[25] = {0,0, 0,-0.4, 0.6,0, 0,0, 0,0.6, -1.2,0}
-    glowAlphaPointAnim[30] = {0,0, 0,-0.1, 0.3,0, 0,0, 0,0.2, 0.5,0}
-    glowAlphaPointAnim["length"] = 39
-    glowAlphaPointAnim["loopType"] = "const"
+    markLine_3 = {-1025,410,300,8,425,0.8,1.0,0}
+    markLine_3["PLT"] = {0,0,0,0,0,0,0,0}
+    markLine_3["PLD"] = {0,0,0,0,0,0,0,0}
 
-    continousGlowFlashInAnim = {}
-    continousGlowFlashInAnim[0] = -0.032/4*3
-    continousGlowFlashInAnim[5] = -0.018/4*3
-    continousGlowFlashInAnim[10] = -0.011/4*3
-    continousGlowFlashInAnim[20] = -0.008/4*3
-    continousGlowFlashInAnim[35] = -0.006/4*3
-    continousGlowFlashInAnim[40] = -0.008/4*3
-    continousGlowFlashInAnim[50] = -0.0035/4*3
-    continousGlowFlashInAnim[70] = -0.001/4*3
-    continousGlowFlashInAnim[100] = -0.0006/4*3
-    continousGlowFlashInAnim[140] = -0.0006/4*3
-    continousGlowFlashInAnim[150] = 0
-    continousGlowFlashInAnim[200] = 0
-    continousGlowFlashInAnim[250] = 0
-    continousGlowFlashInAnim["length"] = 299
-    continousGlowFlashInAnim["loopType"] = "const"
+    stair = {0,300,300,1600,250,3.0,1.0,0}
+    stair["PLT"] = {0,0,0,0,0,0,0,0}
+    stair["PLD"] = {0,0,0,0,0,0,0,0}
 
-    iconFlashInAnim = {}
-    iconFlashInAnim[0] = {0,0,0,0.135,0}
-    iconFlashInAnim[2] = {0,0,0,0.1,0}
-    iconFlashInAnim[4] = {0,0,0,0.06,0}
-    iconFlashInAnim[7] = {0,0,0,0.04,0}
-    iconFlashInAnim[10] = {0,0,0,0.024,0}
-    iconFlashInAnim[15] = {0,0,0,0.022,0}
-    iconFlashInAnim["length"] = 19
-    iconFlashInAnim["loopType"] = "const"
-    
-    iconFlashInAnimHalf = {}
-    iconFlashInAnimHalf[0] = {0,0,0,0.135/2,0}
-    iconFlashInAnimHalf[2] = {0,0,0,0.1/2,0}
-    iconFlashInAnimHalf[4] = {0,0,0,0.06/2,0}
-    iconFlashInAnimHalf[7] = {0,0,0,0.04/2,0}
-    iconFlashInAnimHalf[10] = {0,0,0,0.024/2,0}
-    iconFlashInAnimHalf[15] = {0,0,0,0.022/2,0}
-    iconFlashInAnimHalf["length"] = 19
-    iconFlashInAnimHalf["loopType"] = "const"
+    markLine_4 = {0,150,400,8,950,1.0,1.0,0}
+    markLine_4["PLT"] = {0,0,0,0,0,0,0,0}
+    markLine_4["PLD"] = {0,0,0,0,0,0,0,0}
 
-    iconCharMoveAnim = {}
-    iconCharMoveAnim[0] = {-3,0,0,0,0}
-    iconCharMoveAnim[1] = {-2,0,0,0,0}
-    iconCharMoveAnim[2] = {-1,0,0,0,0}
-    iconCharMoveAnim[4] = {-0.5,0,0,0,0}
-    iconCharMoveAnim[8] = {-0.25,0,0,0,0}
-    iconCharMoveAnim["length"] = 12
-    iconCharMoveAnim["loopType"] = "const"
+    markLine_5 = {1950,150,400,8,950,1.0,1.0,0}
+    markLine_5["PLT"] = {0,0,0,0,0,0,0,0}
+    markLine_5["PLD"] = {0,0,0,0,0,0,0,0}
 
-    charSelectCharMoveInAnim = {}
-    charSelectCharMoveInAnim[0] = {-26.9,0,0,0,0}
-    charSelectCharMoveInAnim[1] = {-33.2+26.9,0,0,0,0}
-    charSelectCharMoveInAnim[2] = {(-39.8+33.2)/2,0,0,0,0}
-    charSelectCharMoveInAnim[4] = {(-46.2+39.8)/4,0,0,0,0}
-    charSelectCharMoveInAnim[8] = {(-51.6+46.2)/7,0,0,0,0}
-    charSelectCharMoveInAnim[15] = {(-54.5+51.6)/7,0,0,0,0}
-    charSelectCharMoveInAnim[22] = {(-56.4+54.5)/8,0,0,0,0}
-    charSelectCharMoveInAnim[30] = {(-58.3+56.4)/15,0,0,0,0}
-    charSelectCharMoveInAnim[45] = {(-59.3+58.3)/15,0,0,0,0}
-    charSelectCharMoveInAnim[60] = {(-59.7+59.3)/15,0,0,0,0}
-    charSelectCharMoveInAnim[75] = {(-59.9+59.7)/15,0,0,0,0}
-    charSelectCharMoveInAnim[90] = {(-60.0+59.9)/15,0,0,0,0}
-    charSelectCharMoveInAnim[105] = {0,0,0,0,0}
-    charSelectCharMoveInAnim["length"] = 109
-    charSelectCharMoveInAnim["loopType"] = "const"
-
-    charSelectCharMoveOutAnim = {}
-    charSelectCharMoveOutAnim[0] = {-2,0,0,0,0}
-    charSelectCharMoveOutAnim[1] = {-4,0,0,0,0}
-    charSelectCharMoveOutAnim[2] = {-11,0,0,0,0}
-    charSelectCharMoveOutAnim[3] = {-33,0,0,0,0}
-    charSelectCharMoveOutAnim[4] = {-50,0,0,0,0}
-    charSelectCharMoveOutAnim["length"] = 4
-    charSelectCharMoveOutAnim["loopType"] = "const"
-
-    charSelectTextMoveInAnim = {}
-    charSelectTextMoveInAnim[0] = {-98.1,0,0,0,0}
-    charSelectTextMoveInAnim[1] = {-122.5+98.1,0,0,0,0}
-    charSelectTextMoveInAnim[2] = {(-147.6+122.5)/2,0,0,0,0}
-    charSelectTextMoveInAnim[4] = {(-172.3+147.6)/4,0,0,0,0}
-    charSelectTextMoveInAnim[8] = {(-193.0+172.3)/7,0,0,0,0}
-    charSelectTextMoveInAnim[15] = {(-203.9+193.0)/7,0,0,0,0}
-    charSelectTextMoveInAnim[22] = {(-211.5+203.9)/8,0,0,0,0}
-    charSelectTextMoveInAnim[30] = {(-219.2+211.5)/15,0,0,0,0}
-    charSelectTextMoveInAnim[45] = {(-222.9+219.2)/15,0,0,0,0}
-    charSelectTextMoveInAnim[60] = {(-224.7+222.9)/15,0,0,0,0}
-    charSelectTextMoveInAnim[75] = {(-225.6+224.7)/15,0,0,0,0}
-    charSelectTextMoveInAnim[90] = {(-225.9+225.6)/15,0,0,0,0}
-    charSelectTextMoveInAnim[105] = {0,0,0,0,0}
-    charSelectTextMoveInAnim["length"] = 109
-    charSelectTextMoveInAnim["loopType"] = "const"
-
-    charSelectTextMoveOutAnim = {}
-    charSelectTextMoveOutAnim[0] = {-5,0,0,0,0}
-    charSelectTextMoveOutAnim[1] = {-10,0,0,0,0}
-    charSelectTextMoveOutAnim[2] = {-20,0,0,0,0}
-    charSelectTextMoveOutAnim[3] = {-50,0,0,0,0}
-    charSelectTextMoveOutAnim[4] = {-110,0,0,0,0}
-    charSelectTextMoveOutAnim["length"] = 4
-    charSelectTextMoveOutAnim["loopType"] = "const"
-
-    charSelectFlashInAnim = {}
-    charSelectFlashInAnim[0] = {0,0,0,0.6,0}
-    charSelectFlashInAnim[1] = {0,0,0,0.23,0}
-    charSelectFlashInAnim[2] = {0,0,0,0.1,0}
-    charSelectFlashInAnim[3] = {0,0,0,0.06,0}
-    charSelectFlashInAnim[4] = {0,0,0,0.01,0}
-    charSelectFlashInAnim["length"] = 4
-    charSelectFlashInAnim["loopType"] = "const"
-
-    charSelectFlashIn75Anim = {}
-    charSelectFlashIn75Anim[0] = {0,0,0,0.6*0.75,0}
-    charSelectFlashIn75Anim[1] = {0,0,0,0.23*0.75,0}
-    charSelectFlashIn75Anim[2] = {0,0,0,0.1*0.75,0}
-    charSelectFlashIn75Anim[3] = {0,0,0,0.06*0.75,0}
-    charSelectFlashIn75Anim[4] = {0,0,0,0.01*0.75,0}
-    charSelectFlashIn75Anim["length"] = 4
-    charSelectFlashIn75Anim["loopType"] = "const"
-
-    charSelectFlashOutAnim = {}
-    charSelectFlashOutAnim[0] = {0,0,0,-0.6,0}
-    charSelectFlashOutAnim[1] = {0,0,0,-0.23,0}
-    charSelectFlashOutAnim[2] = {0,0,0,-0.1,0}
-    charSelectFlashOutAnim[3] = {0,0,0,-0.06,0}
-    charSelectFlashOutAnim[4] = {0,0,0,-0.01,0}
-    charSelectFlashOutAnim["length"] = 4
-    charSelectFlashOutAnim["loopType"] = "const"
-
-    charSelectFlashOut75Anim = {}
-    charSelectFlashOut75Anim[0] = {0,0,0,-0.6*0.75,0}
-    charSelectFlashOut75Anim[1] = {0,0,0,-0.23*0.75,0}
-    charSelectFlashOut75Anim[2] = {0,0,0,-0.1*0.75,0}
-    charSelectFlashOut75Anim[3] = {0,0,0,-0.06*0.75,0}
-    charSelectFlashOut75Anim[4] = {0,0,0,-0.01*0.75,0}
-    charSelectFlashOut75Anim["length"] = 4
-    charSelectFlashOut75Anim["loopType"] = "const"
-
-    charSelectLockingAnim = {}
-    charSelectLockingAnim[0] = {0,0,0,0.23,0}
-    charSelectLockingAnim[2] = {0,0,0,0.07,0}
-    charSelectLockingAnim[5] = {0,0,0,0.018,0}
-    charSelectLockingAnim[10] = {0,0,0,-0.004,0}
-    charSelectLockingAnim[20] = {0,0,0,-0.011,0}
-    charSelectLockingAnim[30] = {0,0,0,-0.005,0}
-    charSelectLockingAnim[40] = {0,0,0,-0.015,0}
-    charSelectLockingAnim[60] = {0,0,0,-0.01,0}
-    charSelectLockingAnim[70] = {0,0,0,-0.005,0}
-    charSelectLockingAnim["length"] = 79
-    charSelectLockingAnim["loopType"] = "const"
-
-    charSelectLockingAnim1 = {}
-    charSelectLockingAnim1[0] = {0,0,0,-0.01,0}
-    charSelectLockingAnim1["length"] = 79
-    charSelectLockingAnim1["loopType"] = "const"
-
-    barMoveUpAnim = {}
-    barMoveUpAnim[0] = {0,-25,0,0,0}
-    barMoveUpAnim[1] = {0,-8,0,0,0}
-    barMoveUpAnim[2] = {0,-4,0,0,0}
-    barMoveUpAnim[3] = {0,-2,0,0,0}
-    barMoveUpAnim[4] = {0,-1,0,0,0}
-    barMoveUpAnim["length"] = 4
-    barMoveUpAnim["loopType"] = "const"
-
-    barMoveUpTwitchAnim = {}
-    barMoveUpTwitchAnim[0] = {0,-5,0,0,0}
-    barMoveUpTwitchAnim[1] = {0,2,0,0,0}
-    barMoveUpTwitchAnim[2] = {0,6,0,0,0}
-    barMoveUpTwitchAnim[3] = {0,-1,0,0,0}
-    barMoveUpTwitchAnim[4] = {0,-2,0,0,0}
-    barMoveUpTwitchAnim["length"] = 4
-    barMoveUpTwitchAnim["loopType"] = "const"
-
-    barMoveDownAnim = {}
-    barMoveDownAnim[0] = {0,25,0,0,0}
-    barMoveDownAnim[1] = {0,8,0,0,0}
-    barMoveDownAnim[2] = {0,4,0,0,0}
-    barMoveDownAnim[3] = {0,2,0,0,0}
-    barMoveDownAnim[4] = {0,1,0,0,0}
-    barMoveDownAnim["length"] = 4
-    barMoveDownAnim["loopType"] = "const"
-
-    barMoveDownTwitchAnim = {}
-    barMoveDownTwitchAnim[0] = {0,5,0,0,0}
-    barMoveDownTwitchAnim[1] = {0,-2,0,0,0}
-    barMoveDownTwitchAnim[2] = {0,-6,0,0,0}
-    barMoveDownTwitchAnim[3] = {0,1,0,0,0}
-    barMoveDownTwitchAnim[4] = {0,2,0,0,0}
-    barMoveDownTwitchAnim["length"] = 4
-    barMoveDownTwitchAnim["loopType"] = "const"
-
-    bgmFlashoutAnim = {}
-    bgmFlashoutAnim[0] = -1/20
-    bgmFlashoutAnim["length"] = 19
-    bgmFlashoutAnim["loopType"] = "const"
+    markLine_6 = {-1950,150,400,8,950,1.0,1.0,0}
+    markLine_6["PLT"] = {0,0,0,0,0,0,0,0}
+    markLine_6["PLD"] = {0,0,0,0,0,0,0,0}
 
 end
-function loadShaderOfCharSelectScene()
-    fractalNoiseShader = love.graphics.newShader[[
-        extern float time;
-        
-        float hash(float x)
-        {
-            return mod(sin(cos(x * 12.13) * 19.123) * 17.321, 1.0);
-        }
-
-        float noise(vec2 p)
-        {
-            vec2 pm = mod(p, 1.0);
-            vec2 pd = p - pm;
-            float v0 = hash(pd.x + pd.y * 41.0);
-            float v1 = hash(pd.x + 1.0 + pd.y * 41.0);
-            float v2 = hash(pd.x + pd.y * 41.0 + 41.0);
-            float v3 = hash(pd.x + pd.y * 41.0 + 42.0);
-            v0 = mix(v0, v1, smoothstep(0.0, 1.0, pm.x));
-            v2 = mix(v2, v3, smoothstep(0.0, 1.0, pm.x));
-            return mix(v0, v2, smoothstep(0.0, 1.0, pm.y));
-        }
-
-        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-        {
-            vec2 uv = screen_coords.xy / 900;
-
-            uv *= 0.8;
-
-            float v = 0.0;
-
-            for (float i = 0.0; i < 12.0; i += 1.0)
-            {
-                float t = mod(1 + i, 12.0);
-                float l = 1 - t;
-                float e = exp2(t);
-                v += noise(uv * e + vec2(time*1, 1)) * (1.0 - (t / 12.0)) * (t / 12.0);
-            }
-
-            v -= 1;
-            v = v * 2;
-            v = v + 0.2;
-
-            if(v< 0){
-                v = 0;
-            }else if(v > 1){
-                v = 1;
-            }
-
-            return vec4(v, v, v, 1.0);
-        }
-    ]]
-    radialBlurShader = love.graphics.newShader[[
-        extern vec2 startCood;
-        const int nsamples = 500;
-        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-        {
-            screen_coords.x = 1600;
-            screen_coords.y = 900;
-            vec2 center = startCood.xy / screen_coords.xy;
-            float blurStart = 0.5;
-            float blurWidth = 0.5;
-
-            vec2 uv = texture_coords.xy;
-            uv -= center;
-            float precompute = blurWidth * (1.0 / float(nsamples - 1));
-
-            vec4 finalColor = vec4(0.0);
-            for (int i = 0; i < nsamples; i++)
-            {
-                float scale = blurStart + (float(i) * precompute);
-                finalColor += Texel(texture, uv * scale + center);
-            }
-
-            finalColor /= float(nsamples);
-
-            return finalColor;
-        }
-    ]]
-end
-function loadAudioSourceOfCharSelectScene()
-    psychedelicParadeReEditSource = love.audio.newSource("asset/UI/CharSelectScene/psychedelicParadeReEdit.mp3","static")
-    charSelectStartSFX1Source = love.audio.newSource("asset/UI/CharSelectScene/charSelectStartSFX1.mp3","static")
-    charSelectStartSFX2Source = love.audio.newSource("asset/UI/CharSelectScene/charSelectStartSFX2.mp3","static")
-    flashOutSFXSource = love.audio.newSource("asset/UI/CharSelectScene/flashOut.mp3","static")
-
-    playerSwitchSource = {}
-    playerSwitchSource[1] = love.audio.newSource("asset/UI/CharSelectScene/clickL.mp3","static")
-    playerSwitchSource[2] = love.audio.newSource("asset/UI/CharSelectScene/clickR.mp3","static")
-    playerSelectSource = {}
-    playerSelectSource[1] = love.audio.newSource("asset/UI/CharSelectScene/toSubL.mp3","static")
-    playerSelectSource[2] = love.audio.newSource("asset/UI/CharSelectScene/toSubR.mp3","static")
-    playerUnselectSource = {}
-    playerUnselectSource[1] = love.audio.newSource("asset/UI/CharSelectScene/toMainL.mp3","static")
-    playerUnselectSource[2] = love.audio.newSource("asset/UI/CharSelectScene/toMainR.mp3","static")
-    playerLockSource = {}
-    playerLockSource[1] = love.audio.newSource("asset/UI/CharSelectScene/lockSFXL.mp3","static")
-    playerLockSource[2] = love.audio.newSource("asset/UI/CharSelectScene/lockSFXR.mp3","static")
-
-    psychedelicParadeReEditSource:setVolume(BGMVolume[0]/10)
-    charSelectStartSFX1Source:setVolume(BGMVolume[0]/10)
-    charSelectStartSFX2Source:setVolume(BGMVolume[0]/10)
-    playerSwitchSource[1]:setVolume(UISFXVolume[0]/10)
-    playerSelectSource[1]:setVolume(UISFXVolume[0]/10)
-    playerUnselectSource[1]:setVolume(UISFXVolume[0]/10)
-    playerLockSource[1]:setVolume(UISFXVolume[0]/10)
-    playerSwitchSource[2]:setVolume(UISFXVolume[0]/10)
-    playerSelectSource[2]:setVolume(UISFXVolume[0]/10)
-    playerUnselectSource[2]:setVolume(UISFXVolume[0]/10)
-    playerLockSource[2]:setVolume(UISFXVolume[0]/10)
-    flashOutSFXSource:setVolume(UISFXVolume[0]/10)
+function loadAnimOfMatchScene()
 
 end
-function unloadObjectOfCharSelectScene()
-    SSV = nil
-    solidColor = nil
-    charSelectBG = nil
-    movieCover = nil
-    firstGlow = nil
-    firstRing = nil
-    continousGlow = nil
-    secondRing = nil
-    timeNumber1 = nil
-    timeNumber2 = nil
-    ANRIIcon = nil
-    ANRIIconChar = nil
-    CKGIcon = nil
-    CKGIconChar = nil
-    ERIKAWK3Icon = nil
-    ERIKAWK3IconChar = nil
-    IZYIcon = nil
-    IZYIconChar = nil
-    KTCIcon = nil
-    KTCIconChar = nil
-    SHINRAIcon = nil
-    SHINRAIconChar = nil
-    SRTIcon = nil
-    SRTIconChar = nil
-    SZOIcon = nil
-    SZOIconChar = nil
-    charSelectLeft = nil
-    charSelectLeftChar = nil
-    charSelectLeftText = nil
-    charSelectRight = nil
-    charSelectRightChar = nil
-    charSelectRightText = nil
-    iconCover1 = nil
-    iconCover2= nil
-    glowAlphaPoint = nil
-    charName1 = nil
-    charName2 = nil
-    controlSelectText1 = nil
-    controlSelectText2 = nil
-    controlSelectBar1 = nil
-    controlSelectBar2 = nil
+function loadShaderOfMatchScene()
+
 end
-function unloadAnimOfCharSelectScene()
-    solidFlashInLinerAnim1 = nil
-    solidFlashInLinerAnim2 = nil
-    solidFlashInLinerAnim3 = nil
-    solidFlashOutLinerAnim = nil
-    firstRingFlashInFrameAnim = nil
-    firstGlowFlashInLinerAnim = nil
-    glowAlphaPointAnim = nil
-    continousGlowFlashInAnim = nil
-    iconFlashInAnim = nil
-    iconFlashInAnimHalf = nil
-    iconCharMoveAnim = nil
-    charSelectCharMoveInAnim = nil
-    charSelectCharMoveOutAnim = nil
-    charSelectTextMoveInAnim = nil
-    charSelectTextMoveOutAnim = nil
-    charSelectFlashInAnim = nil
-    charSelectFlashIn75Anim = nil
-    charSelectFlashOutAnim = nil
-    charSelectFlashOut75Anim = nil
-    charSelectLockingAnim = nil
-    charSelectLockingAnim1 = nil
-    barMoveUpAnim = nil
-    barMoveUpTwitchAnim = nil
-    barMoveDownAnim = nil
-    barMoveDownTwitchAnim = nil
-    bgmFlashoutAnim = nil
+function loadAudioSourceOfMatchScene()
+
 end
-function unloadShaderOfCharSelectScene()
-    fractalNoiseShader = nil
-    radialBlurShader= nil
+function unloadObjectOfMatchScene()
+
 end
-function unloadAudioSourceOfCharSelectScene()
-    psychedelicParadeReEditSource = nil
-    charSelectStartSFX1Source = nil 
-    charSelectStartSFX2Source = nil
-    playerSwitchSource = nil
-    playerSelectSource = nil
-    playerUnselectSource = nil
-    playerLockSource = nil
-    flashOutSFXSource = nil
+function unloadAnimOfMatchScene()
+
+end
+
+function unloadAudioSourceOfMatchScene()
+
 end
    
 -- order load and unload functions
-function loadOrderOfCharSelectScene(loadOrder)
+function loadOrderOfMatchScene(loadOrder)
     local switch = 
     {
         [0] = function()
-            loadObjectOfCharSelectScene()
-            loadAnimOfCharSelectScene()
-            loadShaderOfCharSelectScene()
-            loadAudioSourceOfCharSelectScene()
-
-            continousGlowImage ={}
-            firstRingImage = {}
-            movieCoverImage = {}
-            charSelectCharImage = {}
-            charSelectLeftTextImage = {}
-            charSelectRightTextImage = {}
-
-            ANRIIconAlphaImage = love.graphics.newImage(assetData[0])
-            CKGIconAlphaImage = love.graphics.newImage(assetData[1])
-            ERIKAWK3IconAlphaImage = love.graphics.newImage(assetData[2])
-            IZYIconAlphaImage = love.graphics.newImage(assetData[3])
-            KTCIconAlphaImage = love.graphics.newImage(assetData[4])
-            SHINRAIconAlphaImage = love.graphics.newImage(assetData[5])
-            SRTIconAlphaImage = love.graphics.newImage(assetData[6])
-            SZOIconAlphaImage = love.graphics.newImage(assetData[7])
-
-            iconAlphaPackImage = {
-                KTCIconAlphaImage,
-                ANRIIconAlphaImage,
-                IZYIconAlphaImage,
-                SZOIconAlphaImage,
-                CKGIconAlphaImage,
-                SHINRAIconAlphaImage,
-                SRTIconAlphaImage
-            }
-            iconAlphaPackImage[0] = ERIKAWK3IconAlphaImage
-
-            ANRIIconImage = love.graphics.newImage(assetData[8])
-            CKGIconImage = love.graphics.newImage(assetData[9])
-            ERIKAWK3IconImage = love.graphics.newImage(assetData[10])
-            IZYIconImage = love.graphics.newImage(assetData[11])
-            KTCIconImage = love.graphics.newImage(assetData[12])
-            SHINRAIconImage = love.graphics.newImage(assetData[13])
-            SRTIconImage = love.graphics.newImage(assetData[14])
-            SZOIconImage = love.graphics.newImage(assetData[15])
-
-            charSelectCharImage[2] = love.graphics.newImage(assetData[16])
-            charSelectCharImage[5] = love.graphics.newImage(assetData[17])
-            charSelectCharImage[0] = love.graphics.newImage(assetData[18])
-            charSelectCharImage[3] = love.graphics.newImage(assetData[19])
-            charSelectCharImage[1] = love.graphics.newImage(assetData[20])
-            charSelectCharImage[6] = love.graphics.newImage(assetData[21])
-            charSelectCharImage[7] = love.graphics.newImage(assetData[22])
-            charSelectCharImage[4] = love.graphics.newImage(assetData[23])
-
-            charSelectLeftTextImage[2] = love.graphics.newImage(assetData[24])
-            charSelectLeftTextImage[5] = love.graphics.newImage(assetData[25])
-            charSelectLeftTextImage[0] = love.graphics.newImage(assetData[26])
-            charSelectLeftTextImage[3] = love.graphics.newImage(assetData[27])
-            charSelectLeftTextImage[1] = love.graphics.newImage(assetData[28])
-            charSelectLeftTextImage[6] = love.graphics.newImage(assetData[29])
-            charSelectLeftTextImage[7] = love.graphics.newImage(assetData[30])
-            charSelectLeftTextImage[4] = love.graphics.newImage(assetData[31])
-
-            charSelectRightTextImage[2] = love.graphics.newImage(assetData[32])
-            charSelectRightTextImage[5] = love.graphics.newImage(assetData[33])
-            charSelectRightTextImage[0] = love.graphics.newImage(assetData[34])
-            charSelectRightTextImage[3] = love.graphics.newImage(assetData[27])
-            charSelectRightTextImage[1] = love.graphics.newImage(assetData[35])
-            charSelectRightTextImage[6] = love.graphics.newImage(assetData[36])
-            charSelectRightTextImage[7] = love.graphics.newImage(assetData[37])
-            charSelectRightTextImage[4] = love.graphics.newImage(assetData[31])
+            loadObjectOfMatchScene()
+            loadAnimOfMatchScene()
+            loadShaderOfMatchScene()
+            loadAudioSourceOfMatchScene()
         end,
         [1] = function()
-            for i = 0,2 do
-                continousGlowImage[i] = love.graphics.newImage(assetData[38+i])
-            end
-            for i = 0,17 do
-                firstRingImage[i] = love.graphics.newImage(assetData[41+i])
-            end
+
         end,
         [2] = function()
-            movieCoverImage[0] = love.graphics.newImage(assetData[59])
-            movieCoverImage[1] = love.graphics.newImage(assetData[60])
-            movieCoverImage[2] = love.graphics.newImage(assetData[61])
-            charSelectBGImage = love.graphics.newImage(assetData[62])
-            charSelectLeftAlphaImage = love.graphics.newImage(assetData[63])
-            charSelectRightAlphaImage = love.graphics.newImage(assetData[64])
-            firstGlowImage = love.graphics.newImage(assetData[65])
-            secondRingImage = love.graphics.newImage(assetData[66])
 
-            controlMethod1Image = love.graphics.newImage(assetData[67])
-            controlMethod2Image = love.graphics.newImage(assetData[68])
-
-            barMarkImage = love.graphics.newImage(assetData[69])
         end
     }
     local thisFunction = switch[loadOrder]
     if thisFunction then thisFunction() end
 end
-function unloadOrderOfCharSelectScene()
-    unloadObjectOfCharSelectScene()
-    unloadAnimOfCharSelectScene()
-    unloadShaderOfCharSelectScene()
-    unloadAudioSourceOfCharSelectScene()
+function unloadOrderOfMatchScene()
+    unloadObjectOfMatchScene()
+    unloadAnimOfMatchScene()
+    unloadShaderOfMatchScene()
+    unloadAudioSourceOfMatchScene()
     
-    continousGlowImage = nil
-    firstRingImage = nil
-    movieCoverImage = nil
-    charSelectCharImage = nil
-    charSelectLeftTextImage = nil
-    charSelectRightTextImage = nil
-    iconAlphaPackImage = nil
-
-    ANRIIconAlphaImage = nil
-    CKGIconAlphaImage = nil
-    ERIKAWK3IconAlphaImage = nil
-    IZYIconAlphaImage = nil
-    KTCIconAlphaImage = nil
-    SHINRAIconAlphaImage = nil
-    SRTIconAlphaImage = nil
-    SZOIconAlphaImage = nil
-
-    ANRIIconImage = nil
-    CKGIconImage = nil
-    ERIKAWK3IconImage = nil
-    IZYIconImage = nil
-    KTCIconImage = nil
-    SHINRAIconImage = nil
-    SRTIconImage = nil
-    SZOIconImage = nil
-
-    charSelectBGImage = nil
-    charSelectLeftAlphaImage = nil
-    charSelectRightAlphaImage = nil
-    firstGlowImage = nil
-    secondRingImage = nil
-
-    controlMethod1Image = nil
-    controlMethod2Image = nil
-
-    barMarkImage = nil
 end

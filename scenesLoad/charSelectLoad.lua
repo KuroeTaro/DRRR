@@ -573,7 +573,7 @@ function loadAnimOfCharSelectScene()
 end
 function loadShaderOfCharSelectScene()
     --These two shaders were found on shadertoy, I just embedded these two shaders into love2d.
-    fractalNoiseShader = love.graphics.newShader("shaders/fractalNoise.glsl")
+    chatSelectFractalNoiseShader = love.graphics.newShader("shaders/chatSelectFractalNoise.glsl")
     radialBlurShader = love.graphics.newShader("shaders/radialBlur.glsl")
 end
 function loadAudioSourceOfCharSelectScene()
@@ -1292,7 +1292,7 @@ function unloadAnimOfCharSelectScene()
     bgmFlashoutAnim = nil
 end
 function unloadShaderOfCharSelectScene()
-    fractalNoiseShader = nil
+    chatSelectFractalNoiseShader = nil
     radialBlurShader= nil
 end
 function unloadAudioSourceOfCharSelectScene()
