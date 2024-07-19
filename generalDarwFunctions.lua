@@ -29,6 +29,8 @@ function drawWithAlphaRetangle(retangle,object,image)
         love.graphics.rectangle("fill", x, y, w, h)
     end
     love.graphics.stencil(myStencilFunction, "replace", 1)
+    local x = resolutionCorrection(object[1])
+    local y = resolutionCorrection(object[2])
     local s = resolutionCorrection(object[3])
     love.graphics.setStencilTest("greater", 0)
     love.graphics.setColor(1, 1, 1, object[4])
