@@ -18,6 +18,8 @@ require("/scenesLoad/firstObjectAndAssetData")
 require("/scenesLoad/dicAndLogoLoad")
 require("/scenesLoad/startLoad")
 require("/scenesLoad/charSelectLoad")
+require("/scenesLoad/matchLoad")
+
 
 function love.run()
 	if love.load then love.load(love.arg.parseGameArguments(arg), arg) end
@@ -65,6 +67,16 @@ function love.load()
     loadOnce = false 
     loadOrder = 0
     assetData = nil
+    
+    threadArray = {nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil}
+    threadOnceArray = {false,false,false,false,false,false,false,false,false,false,false}
+    loadOnceArray = {false,false,false,false,false,false,false,false,false,false,false}
+    loadOrderArray = {0,0,0,0,0,0,0,0,0,0,0}
+    loadFunctionArray = {nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil}
+    OrderSizeArray = {0,0,0,0,0,0,0,0,0,0,0}
+    assetDataArray = {nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil}
+    threadAmount = 1
+
     gft = 0
 
     playerNumber = 1

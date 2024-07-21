@@ -183,7 +183,7 @@ function camera_obj_draw(camera,object,image)
     -- x y z 锚点都在中心
     -- camera x y z
     local scale = 800/(object[3]-camera[3])
-    local coodRes = {scale*(object[1]-camera[1])+800-scale/2*(object[4]),scale*(object[2]-camera[2])+450-scale/2*(object[5])}
+    local coodRes = {scale*(object[1]-camera[1])+800-scale/2*(object[4]*object[6]),scale*(object[2]-camera[2])+450-scale/2*(object[5]*object[7])}
     local x = resolutionCorrection(coodRes[1])
     local y = resolutionCorrection(coodRes[2])
     local sx = resolutionCorrection(scale*object[6])

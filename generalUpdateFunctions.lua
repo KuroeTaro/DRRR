@@ -29,6 +29,45 @@ function loadAssetFunction(threadAddress,loadFunction,OrderSize)
     end
 end
 
+
+function loadAssetFunctionArray()
+    local i = 1
+    while (i<=threadAmount)
+    do
+        if threadOnceArray[i] == false then 
+            local thread = love.thread.newThread(threadArray[i])
+            thread:start()
+            threadOnceArray[i] = true
+            print("thread runed")
+        end
+        i = i + 1
+    end
+    -- pop image data
+    i = 1
+    while (i<=threadAmount)
+    do
+        if assetDataArray[i] == nil then 
+            assetDataArray[i] = love.thread.getChannel("image_"..i..""):pop()
+            print("image poped")
+        end
+        i = i + 1
+    end
+    -- load asset data to variables
+    i = 1
+    while (i<=threadAmount)
+    do
+        if assetDataArray[i] ~= nil then
+            loadFunctionArray[i](loadOrderArray[i])
+            loadOrderArray[i] = loadOrderArray[i] + 1
+            if loadOrderArray[i] > OrderSizeArray[i] then 
+                loadOrderArray[i] = 0
+                loadOnceArray[i] = true
+            end
+        end
+        i = i + 1
+    end
+end
+
 function aquireCurrentRes()
     local width, height, flags = love.window.getMode()
     if width < 1600 then resPartten = 0 

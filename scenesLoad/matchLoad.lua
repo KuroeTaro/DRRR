@@ -44,179 +44,179 @@ function loadObjectOfMatchScene()
 
 
     -- UI object x y s transparent frame
-    solidColor = {7/255,19/255,31/255,1,0}
-    solidColor["PLT"] = {0,0,0,0,0}
-    solidColor["PLD"] = {0,0,0,0,0}
+    solid_color = {7/255,19/255,31/255,1,0}
+    solid_color["PLT"] = {0,0,0,0,0}
+    solid_color["PLD"] = {0,0,0,0,0}
 
-    bgColor = {115/255,115/255,115/255,1,0}
-    bgColor["PLT"] = {0,0,0,0,0}
-    bgColor["PLD"] = {0,0,0,0,0}
+    bg_color = {115/255,115/255,115/255,1,0}
+    bg_color["PLT"] = {0,0,0,0,0}
+    bg_color["PLD"] = {0,0,0,0,0}
 
-    ODLightP1 = {131,75,1,0,0}
-    ODLightP1["PLT"] = {0,0,0,0,0}
-    ODLightP1["PLD"] = {0,0,0,0,0}
+    OD_light_P1 = {131,75,1,0,0}
+    OD_light_P1["PLT"] = {0,0,0,0,0}
+    OD_light_P1["PLD"] = {0,0,0,0,0}
 
-    ODLightP2 = {1469,75,1,0,0}
-    ODLightP2["PLT"] = {0,0,0,0,0}
-    ODLightP2["PLD"] = {0,0,0,0,0}
+    OD_light_P2 = {1469,75,1,0,0}
+    OD_light_P2["PLT"] = {0,0,0,0,0}
+    OD_light_P2["PLD"] = {0,0,0,0,0}
 
-    roundTimer1 = {780,85,1,0,0}
-    roundTimer1["PLT"] = {0,0,0,0,0}
-    roundTimer1["PLD"] = {0,0,0,0,0}
+    round_timer1 = {780,85,1,0,0}
+    round_timer1["PLT"] = {0,0,0,0,0}
+    round_timer1["PLD"] = {0,0,0,0,0}
 
-    roundTimer2 = {803,85,1,0,0}
-    roundTimer2["PLT"] = {0,0,0,0,0}
-    roundTimer2["PLD"] = {0,0,0,0,0}
+    round_timer2 = {803,85,1,0,0}
+    round_timer2["PLT"] = {0,0,0,0,0}
+    round_timer2["PLD"] = {0,0,0,0,0}
 
-    abilityLightP1 = {375,102,1,0,0}
-    abilityLightP1["PLT"] = {0,0,0,0,0}
-    abilityLightP1["PLD"] = {0,0,0,0,0}
+    ability_light_P1 = {375,102,1,0,0}
+    ability_light_P1["PLT"] = {0,0,0,0,0}
+    ability_light_P1["PLD"] = {0,0,0,0,0}
 
-    abilityLightP2 = {1225,102,1,0,0}
-    abilityLightP2["PLT"] = {0,0,0,0,0}
-    abilityLightP2["PLD"] = {0,0,0,0,0}
+    ability_light_P2 = {1225,102,1,0,0}
+    ability_light_P2["PLT"] = {0,0,0,0,0}
+    ability_light_P2["PLD"] = {0,0,0,0,0}
 
-    SPStatusP1 = {1469,75,1,0,0}
-    SPStatusP1["PLT"] = {0,0,0,0,0}
-    SPStatusP1["PLD"] = {0,0,0,0,0}
+    SP_status_P1 = {9,135,1,0,0}
+    SP_status_P1["PLT"] = {0,0,0,0,0}
+    SP_status_P1["PLD"] = {0,0,0,0,0}
 
-    SPStatusP2 = {1469,75,1,0,0}
-    SPStatusP2["PLT"] = {0,0,0,0,0}
-    SPStatusP2["PLD"] = {0,0,0,0,0}
+    SP_status_P2 = {1431,137,1,0,0}
+    SP_status_P2["PLT"] = {0,0,0,0,0}
+    SP_status_P2["PLD"] = {0,0,0,0,0}
 
-    healthLightP1 = {175,65,1,0,0}
-    healthLightP1["PLT"] = {0,0,0,0,0}
-    healthLightP1["PLD"] = {0,0,0,0,0}
+    health_light_P1 = {175,65,1,0,0}
+    health_light_P1["PLT"] = {0,0,0,0,0}
+    health_light_P1["PLD"] = {0,0,0,0,0}
 
-    healthLightP2 = {1425,65,1,0,0}
-    healthLightP2["PLT"] = {0,0,0,0,0}
-    healthLightP2["PLD"] = {0,0,0,0,0}
+    health_light_P2 = {1425,65,1,0,0}
+    health_light_P2["PLT"] = {0,0,0,0,0}
+    health_light_P2["PLD"] = {0,0,0,0,0}
 
-    healthFadeLightP1 = {175,65,1,0,0}
-    healthFadeLightP1["PLT"] = {0,0,0,0,0}
-    healthFadeLightP1["PLD"] = {0,0,0,0,0}
+    health_fade_light_P1 = {175,65,1,0,0}
+    health_fade_light_P1["PLT"] = {0,0,0,0,0}
+    health_fade_light_P1["PLD"] = {0,0,0,0,0}
 
-    healthFadeLightP2 = {1425,65,1,0,0}
-    healthFadeLightP2["PLT"] = {0,0,0,0,0}
-    healthFadeLightP2["PLD"] = {0,0,0,0,0}
+    health_fade_light_P2 = {1425,65,1,0,0}
+    health_fade_light_P2["PLT"] = {0,0,0,0,0}
+    health_fade_light_P2["PLD"] = {0,0,0,0,0}
 
-    heatLightP1 = {295,124,1,0,0}
-    heatLightP1["PLT"] = {0,0,0,0,0}
-    heatLightP1["PLD"] = {0,0,0,0,0}
+    heat_light_P1 = {295,124,1,0,0}
+    heat_light_P1["PLT"] = {0,0,0,0,0}
+    heat_light_P1["PLD"] = {0,0,0,0,0}
 
-    heatLightP2 = {1305,124,1,0,0}
-    heatLightP2["PLT"] = {0,0,0,0,0}
-    heatLightP2["PLD"] = {0,0,0,0,0}
+    heat_light_P2 = {1305,124,1,0,0}
+    heat_light_P2["PLT"] = {0,0,0,0,0}
+    heat_light_P2["PLD"] = {0,0,0,0,0}
     
-    heatIndicatorP1 = {675,124,1,0,0}
-    heatIndicatorP1["PLT"] = {0,0,0,0,0}
-    heatIndicatorP1["PLD"] = {0,0,0,0,0}
+    heat_indicator_P1 = {675,140,1,0,0}
+    heat_indicator_P1["PLT"] = {0,0,0,0,0}
+    heat_indicator_P1["PLD"] = {0,0,0,0,0}
 
-    heatIndicatorP2 = {925,124,1,0,0}
-    heatIndicatorP2["PLT"] = {0,0,0,0,0}
-    heatIndicatorP2["PLD"] = {0,0,0,0,0}
+    heat_indicator_P2 = {925,140,1,0,0}
+    heat_indicator_P2["PLT"] = {0,0,0,0,0}
+    heat_indicator_P2["PLD"] = {0,0,0,0,0}
 
-    ODIndicatorP1 = {1305,102,1,0,0}
-    ODIndicatorP1["PLT"] = {0,0,0,0,0}
-    ODIndicatorP1["PLD"] = {0,0,0,0,0}
+    OD_indicator_P1 = {205,102,1,0,0}
+    OD_indicator_P1["PLT"] = {0,0,0,0,0}
+    OD_indicator_P1["PLD"] = {0,0,0,0,0}
 
-    ODIndicatorP2 = {205,102,1,0,0}
-    ODIndicatorP2["PLT"] = {0,0,0,0,0}
-    ODIndicatorP2["PLD"] = {0,0,0,0,0}
+    OD_indicator_P2 = {1250,102,1,0,0}
+    OD_indicator_P2["PLT"] = {0,0,0,0,0}
+    OD_indicator_P2["PLD"] = {0,0,0,0,0}
 
-    ODTimerP1 = {192,149,1,0,0}
-    ODTimerP1["PLT"] = {0,0,0,0,0}
-    ODTimerP1["PLD"] = {0,0,0,0,0}
+    OD_timer_P1 = {192,149,1,0,0}
+    OD_timer_P1["PLT"] = {0,0,0,0,0}
+    OD_timer_P1["PLD"] = {0,0,0,0,0}
 
-    ODTimerP2 = {1290,149,1,0,0}
-    ODTimerP2["PLT"] = {0,0,0,0,0}
-    ODTimerP2["PLD"] = {0,0,0,0,0}
+    OD_timer_P2 = {1290,149,1,0,0}
+    OD_timer_P2["PLT"] = {0,0,0,0,0}
+    OD_timer_P2["PLD"] = {0,0,0,0,0}
 
-    riskLightP1 = {195,127,1,0,0}
-    riskLightP1["PLT"] = {0,0,0,0,0}
-    riskLightP1["PLD"] = {0,0,0,0,0}
+    risk_light_P1 = {195,127,1,0,0}
+    risk_light_P1["PLT"] = {0,0,0,0,0}
+    risk_light_P1["PLD"] = {0,0,0,0,0}
 
-    riskLightP2 = {1405,127,1,0,0}
-    riskLightP2["PLT"] = {0,0,0,0,0}
-    riskLightP2["PLD"] = {0,0,0,0,0}
+    risk_light_P2 = {1405,127,1,0,0}
+    risk_light_P2["PLT"] = {0,0,0,0,0}
+    risk_light_P2["PLD"] = {0,0,0,0,0}
 
-    matchPointLightP1 = {717,85,1,0,0}
-    matchPointLightP1["PLT"] = {0,0,0,0,0}
-    matchPointLightP1["PLD"] = {0,0,0,0,0}
+    match_point_light_P1 = {717,85,1,0,0}
+    match_point_light_P1["PLT"] = {0,0,0,0,0}
+    match_point_light_P1["PLD"] = {0,0,0,0,0}
 
-    matchPointLightP2 = {883,85,1,0,0}
-    matchPointLightP2["PLT"] = {0,0,0,0,0}
-    matchPointLightP2["PLD"] = {0,0,0,0,0}
+    match_point_light_P2 = {883,85,1,0,0}
+    match_point_light_P2["PLT"] = {0,0,0,0,0}
+    match_point_light_P2["PLD"] = {0,0,0,0,0}
 
-    roundCounterP1 = {883,85,1,0,0}
-    roundCounterP1["PLT"] = {0,0,0,0,0}
-    roundCounterP1["PLD"] = {0,0,0,0,0}
+    round_counter_P1 = {751,116,1,0,0}
+    round_counter_P1["PLT"] = {0,0,0,0,0}
+    round_counter_P1["PLD"] = {0,0,0,0,0}
 
-    roundCounterP2 = {883,85,1,0,0}
-    roundCounterP2["PLT"] = {0,0,0,0,0}
-    roundCounterP2["PLD"] = {0,0,0,0,0}
+    round_counter_P2 = {849,116,1,0,0}
+    round_counter_P2["PLT"] = {0,0,0,0,0}
+    round_counter_P2["PLD"] = {0,0,0,0,0}
 
-    UIUpper = {0,0,1,0,0}
-    UIUpper["PLT"] = {0,0,0,0,0}
-    UIUpper["PLD"] = {0,0,0,0,0}
+    UI_upper = {0,0,1,0,0}
+    UI_upper["PLT"] = {0,0,0,0,0}
+    UI_upper["PLD"] = {0,0,0,0,0}
 
     -- Gauge
 
-    ODGaugeP1 = {131,75,1,0,0}
-    ODGaugeP1["PLT"] = {0,0,0,0,0}
-    ODGaugeP1["PLD"] = {0,0,0,0,0}
+    OD_gauge_P1 = {131,75,1,0,0}
+    OD_gauge_P1["PLT"] = {0,0,0,0,0}
+    OD_gauge_P1["PLD"] = {0,0,0,0,0}
 
-    ODGaugeP2 = {1469,75,1,0,0}
-    ODGaugeP2["PLT"] = {0,0,0,0,0}
-    ODGaugeP2["PLD"] = {0,0,0,0,0}
+    OD_gauge_P2 = {1469,75,1,0,0}
+    OD_gauge_P2["PLT"] = {0,0,0,0,0}
+    OD_gauge_P2["PLD"] = {0,0,0,0,0}
 
-    abilityGaugeP1 = {375,102,1,0,0}
-    abilityGaugeP1["PLT"] = {0,0,0,0,0}
-    abilityGaugeP1["PLD"] = {0,0,0,0,0}
+    ability_gauge_P1 = {375,102,1,0,0}
+    ability_gauge_P1["PLT"] = {0,0,0,0,0}
+    ability_gauge_P1["PLD"] = {0,0,0,0,0}
 
-    abilityGaugeP2 = {1225,102,1,0,0}
-    abilityGaugeP2["PLT"] = {0,0,0,0,0}
-    abilityGaugeP2["PLD"] = {0,0,0,0,0}
+    ability_gauge_P2 = {1225,102,1,0,0}
+    ability_gauge_P2["PLT"] = {0,0,0,0,0}
+    ability_gauge_P2["PLD"] = {0,0,0,0,0}
 
-    SPStatusP1 = {1469,75,1,0,0}
-    SPStatusP1["PLT"] = {0,0,0,0,0}
-    SPStatusP1["PLD"] = {0,0,0,0,0}
+    health_gauge_P1 = {175,65,1,0,0}
+    health_gauge_P1["PLT"] = {0,0,0,0,0}
+    health_gauge_P1["PLD"] = {0,0,0,0,0}
 
-    SPStatusP2 = {1469,75,1,0,0}
-    SPStatusP2["PLT"] = {0,0,0,0,0}
-    SPStatusP2["PLD"] = {0,0,0,0,0}
+    health_gauge_P2 = {1425,65,1,0,0}
+    health_gauge_P2["PLT"] = {0,0,0,0,0}
+    health_gauge_P2["PLD"] = {0,0,0,0,0}
 
-    healthGaugeP1 = {175,65,1,0,0}
-    healthGaugeP1["PLT"] = {0,0,0,0,0}
-    healthGaugeP1["PLD"] = {0,0,0,0,0}
+    heat_gauge_P1 = {295,124,1,0,0}
+    heat_gauge_P1["PLT"] = {0,0,0,0,0}
+    heat_gauge_P1["PLD"] = {0,0,0,0,0}
 
-    healthGaugeP2 = {1425,65,1,0,0}
-    healthGaugeP2["PLT"] = {0,0,0,0,0}
-    healthGaugeP2["PLD"] = {0,0,0,0,0}
+    heat_gauge_P2 = {1305,124,1,0,0}
+    heat_gauge_P2["PLT"] = {0,0,0,0,0}
+    heat_gauge_P2["PLD"] = {0,0,0,0,0}
 
-    heatGaugeP1 = {295,124,1,0,0}
-    heatGaugeP1["PLT"] = {0,0,0,0,0}
-    heatGaugeP1["PLD"] = {0,0,0,0,0}
+    OD_indicator_gauge_P1 = {205,102,1,0,0}
+    OD_indicator_gauge_P1["PLT"] = {0,0,0,0,0}
+    OD_indicator_gauge_P1["PLD"] = {0,0,0,0,0}
 
-    heatGaugeP2 = {1305,124,1,0,0}
-    heatGaugeP2["PLT"] = {0,0,0,0,0}
-    heatGaugeP2["PLD"] = {0,0,0,0,0}
+    OD_indicator_gauge_P2 = {1250,102,1,0,0}
+    OD_indicator_gauge_P2["PLT"] = {0,0,0,0,0}
+    OD_indicator_gauge_P2["PLD"] = {0,0,0,0,0}
 
-    riskGaugeP1 = {195,127,1,0,0}
-    riskGaugeP1["PLT"] = {0,0,0,0,0}
-    riskGaugeP1["PLD"] = {0,0,0,0,0}
+    risk_gauge_P1 = {195,127,1,0,0}
+    risk_gauge_P1["PLT"] = {0,0,0,0,0}
+    risk_gauge_P1["PLD"] = {0,0,0,0,0}
 
-    riskGaugeP2 = {1405,127,1,0,0}
-    riskGaugeP2["PLT"] = {0,0,0,0,0}
-    riskGaugeP2["PLD"] = {0,0,0,0,0}
+    risk_gauge_P2 = {1405,127,1,0,0}
+    risk_gauge_P2["PLT"] = {0,0,0,0,0}
+    risk_gauge_P2["PLD"] = {0,0,0,0,0}
 
-    matchPointGaugeP1 = {717,85,1,0,0}
-    matchPointGaugeP1["PLT"] = {0,0,0,0,0}
-    matchPointGaugeP1["PLD"] = {0,0,0,0,0}
+    match_point_gauge_P1 = {717,85,1,0,0}
+    match_point_gauge_P1["PLT"] = {0,0,0,0,0}
+    match_point_gauge_P1["PLD"] = {0,0,0,0,0}
 
-    matchPointGaugeP2 = {883,85,1,0,0}
-    matchPointGaugeP2["PLT"] = {0,0,0,0,0}
-    matchPointGaugeP2["PLD"] = {0,0,0,0,0}
+    match_point_gauge_P2 = {883,85,1,0,0}
+    match_point_gauge_P2["PLT"] = {0,0,0,0,0}
+    match_point_gauge_P2["PLD"] = {0,0,0,0,0}
 
     -- 3D object x y z 图片素材宽度 图片素材高度 sx sy frame
     -- 3D object Character 的 图片素材宽度 图片素材高度
@@ -225,64 +225,64 @@ function loadObjectOfMatchScene()
     -- 浮空状态后如果box和地面接触则判定为落地 继承hitstun
     -- 落地后会将object的Y值强制设定为固定值 每个角色根据落地恢复动画的不同而有所差异
 
-    camera = {0,0,-700}
+    camera = {0, 0,-700}
     camera["PLT"] = {0,0,0}
     camera["PLD"] = {0,0,0}
 
-    stageGlow = {800,-770,0}
-    stageGlow["PLT"] = {0,0,0}
-    stageGlow["PLD"] = {0,0,0}
+    stage_glow = {800,-770,0}
+    stage_glow["PLT"] = {0,0,0}
+    stage_glow["PLD"] = {0,0,0}
 
     --readCharBaseData(selectedChar)
-    p1Char = {-300,103,0,1.30,1.25,0}
-    p1Char["state"] = "stand_Idle"
-    p1Char["PLT"] = {0,0,0,0,0,0}
-    p1Char["PLD"] = {0,0,0,0,0,0}
-    p1Char["longShadow"] = {{},{}}
-    p1Char["fadeShadow"] = {}
+    p1_char = {-300,103,0,1.30,1.25,0}
+    p1_char["state"] = "stand_Idle"
+    p1_char["PLT"] = {0,0,0,0,0,0}
+    p1_char["PLD"] = {0,0,0,0,0,0}
+    p1_char["longShadow"] = {{},{}}
+    p1_char["fadeShadow"] = {}
 
-    p2Char = {300,103,0,1.30,1.25,0}
-    p2Char["state"] = "stand_Idle"
-    p2Char["PLT"] = {0,0,0,0,0,0}
-    p2Char["PLD"] = {0,0,0,0,0,0}
-    p2Char["longShadow"] = {{},{}}
-    p2Char["fadeShadow"] = {}
+    p2_char = {300,103,0,1.30,1.25,0}
+    p2_char["state"] = "stand_Idle"
+    p2_char["PLT"] = {0,0,0,0,0,0}
+    p2_char["PLD"] = {0,0,0,0,0,0}
+    p2_char["longShadow"] = {{},{}}
+    p2_char["fadeShadow"] = {}
 
     ground = {0,470,200,1600,300,3.0,1.0,0}
     ground["PLT"] = {0,0,0,0,0,0,0,0}
     ground["PLD"] = {0,0,0,0,0,0,0,0}
 
-    markLine_0 = {1950,410,300,8,425,0.8,1.0,0}
-    markLine_0["PLT"] = {0,0,0,0,0,0,0,0}
-    markLine_0["PLD"] = {0,0,0,0,0,0,0,0}
+    markline_0 = {1950,410,300,8,425,0.8,1.0,0}
+    markline_0["PLT"] = {0,0,0,0,0,0,0,0}
+    markline_0["PLD"] = {0,0,0,0,0,0,0,0}
 
-    markLine_1 = {-1950,410,300,8,425,0.8,1.0,0}
-    markLine_1["PLT"] = {0,0,0,0,0,0,0,0}
-    markLine_1["PLD"] = {0,0,0,0,0,0,0,0}
+    markline_1 = {-1950,410,300,8,425,0.8,1.0,0}
+    markline_1["PLT"] = {0,0,0,0,0,0,0,0}
+    markline_1["PLD"] = {0,0,0,0,0,0,0,0}
 
-    markLine_2 = {1025,410,300,8,425,0.8,1.0,0}
-    markLine_2["PLT"] = {0,0,0,0,0,0,0,0}
-    markLine_2["PLD"] = {0,0,0,0,0,0,0,0}
+    markline_2 = {1025,410,300,8,425,0.8,1.0,0}
+    markline_2["PLT"] = {0,0,0,0,0,0,0,0}
+    markline_2["PLD"] = {0,0,0,0,0,0,0,0}
 
-    markLine_3 = {-1025,410,300,8,425,0.8,1.0,0}
-    markLine_3["PLT"] = {0,0,0,0,0,0,0,0}
-    markLine_3["PLD"] = {0,0,0,0,0,0,0,0}
+    markline_3 = {-1025,410,300,8,425,0.8,1.0,0}
+    markline_3["PLT"] = {0,0,0,0,0,0,0,0}
+    markline_3["PLD"] = {0,0,0,0,0,0,0,0}
 
     stair = {0,300,300,1600,250,3.0,1.0,0}
     stair["PLT"] = {0,0,0,0,0,0,0,0}
     stair["PLD"] = {0,0,0,0,0,0,0,0}
 
-    markLine_4 = {0,150,400,8,950,1.0,1.0,0}
-    markLine_4["PLT"] = {0,0,0,0,0,0,0,0}
-    markLine_4["PLD"] = {0,0,0,0,0,0,0,0}
+    markline_4 = {0,150,400,8,950,1.0,1.0,0}
+    markline_4["PLT"] = {0,0,0,0,0,0,0,0}
+    markline_4["PLD"] = {0,0,0,0,0,0,0,0}
 
-    markLine_5 = {1950,150,400,8,950,1.0,1.0,0}
-    markLine_5["PLT"] = {0,0,0,0,0,0,0,0}
-    markLine_5["PLD"] = {0,0,0,0,0,0,0,0}
+    markline_5 = {1950,150,400,8,950,1.0,1.0,0}
+    markline_5["PLT"] = {0,0,0,0,0,0,0,0}
+    markline_5["PLD"] = {0,0,0,0,0,0,0,0}
 
-    markLine_6 = {-1950,150,400,8,950,1.0,1.0,0}
-    markLine_6["PLT"] = {0,0,0,0,0,0,0,0}
-    markLine_6["PLD"] = {0,0,0,0,0,0,0,0}
+    markline_6 = {-1950,150,400,8,950,1.0,1.0,0}
+    markline_6["PLT"] = {0,0,0,0,0,0,0,0}
+    markline_6["PLD"] = {0,0,0,0,0,0,0,0}
 
 end
 function loadAnimOfMatchScene()
@@ -306,7 +306,7 @@ function unloadAudioSourceOfMatchScene()
 end
    
 -- order load and unload functions
-function loadOrderOfMatchScene(loadOrder)
+function loadOrderOfMatchSceneUI(loadOrder)
     local switch = 
     {
         [0] = function()
@@ -316,10 +316,63 @@ function loadOrderOfMatchScene(loadOrder)
             loadAudioSourceOfMatchScene()
         end,
         [1] = function()
+            ODLight_0_image = love.graphics.newImage(assetDataArray[1][0])
+            ODLight_1_image = love.graphics.newImage(assetDataArray[1][1])
+            ODLight_2_image = love.graphics.newImage(assetDataArray[1][2])
+            ODLight_3_image = love.graphics.newImage(assetDataArray[1][3])
+            ODLight_4_image = love.graphics.newImage(assetDataArray[1][4])
+            ODLight_5_image = love.graphics.newImage(assetDataArray[1][5])
 
+            time_number_0_image = love.graphics.newImage(assetDataArray[1][6])
+            time_number_1_image = love.graphics.newImage(assetDataArray[1][7])
+            time_number_2_image = love.graphics.newImage(assetDataArray[1][8])
+            time_number_3_image = love.graphics.newImage(assetDataArray[1][9])
+            time_number_4_image = love.graphics.newImage(assetDataArray[1][10])
+            time_number_5_image = love.graphics.newImage(assetDataArray[1][11])
+            time_number_6_image = love.graphics.newImage(assetDataArray[1][12])
+            time_number_7_image = love.graphics.newImage(assetDataArray[1][13])
+            time_number_8_image = love.graphics.newImage(assetDataArray[1][14])
+            time_number_9_image = love.graphics.newImage(assetDataArray[1][15])
+            time_number_colon_image = love.graphics.newImage(assetDataArray[1][16])
+
+            ability_light_image = love.graphics.newImage(assetDataArray[1][17])
+            danger_P1_image = love.graphics.newImage(assetDataArray[1][18])
+            danger_P2_image = love.graphics.newImage(assetDataArray[1][19])
+            health_light_image = love.graphics.newImage(assetDataArray[1][20])
+            heat_indicator_image = love.graphics.newImage(assetDataArray[1][21])
+            heat_light_image = love.graphics.newImage(assetDataArray[1][22])
+            negative_penalty_P1_image = love.graphics.newImage(assetDataArray[1][23])
+            negative_penalty_P2_image = love.graphics.newImage(assetDataArray[1][24])
+            overdrive_indicator_image = love.graphics.newImage(assetDataArray[1][25])
+            round_counter_image = love.graphics.newImage(assetDataArray[1][26])
+            positive_bonus_text_image = love.graphics.newImage(assetDataArray[1][27])
+            positive_bouns_P1_image = love.graphics.newImage(assetDataArray[1][28])
+            positive_bouns_P2_image = love.graphics.newImage(assetDataArray[1][29])
+            risk_light_image = love.graphics.newImage(assetDataArray[1][30])
+            match_point_light_image = love.graphics.newImage(assetDataArray[1][31])
+            UI_upper_image = love.graphics.newImage(assetDataArray[1][32])
         end,
         [2] = function()
-
+            ability_gauge_image = love.graphics.newImage(assetDataArray[1][33])
+            health_gauge_image = love.graphics.newImage(assetDataArray[1][34])
+            heat_gauge_image = love.graphics.newImage(assetDataArray[1][35])
+            OD_gauge_image = love.graphics.newImage(assetDataArray[1][36])
+            overdrive_indicator_gauge_image = love.graphics.newImage(assetDataArray[1][37])
+            risk_gauge_image = love.graphics.newImage(assetDataArray[1][38])
+            match_point_gauge_image = love.graphics.newImage(assetDataArray[1][39])
+        end
+    }
+    local thisFunction = switch[loadOrder]
+    if thisFunction then thisFunction() end
+end
+function loadOrderOfMatchSceneStage(loadOrder)
+    local switch = 
+    {
+        [0] = function()
+            ground_image = love.graphics.newImage(assetDataArray[2][0])
+            markLine425_image = love.graphics.newImage(assetDataArray[2][1])
+            markLine950_image = love.graphics.newImage(assetDataArray[2][2])
+            stair_image = love.graphics.newImage(assetDataArray[2][3])
         end
     }
     local thisFunction = switch[loadOrder]

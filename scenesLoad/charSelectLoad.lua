@@ -1046,6 +1046,32 @@ function loadSubSwitchesOfCharSelectScene()
             loadOrder = 0
     
             assetData = nil
+
+            threadArray = {
+                "loadThread/matchSceneUIThread.lua",
+                "loadThread/matchSceneStageThread.lua",
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil
+            }
+            threadOnceArray = {false,false,false,false,false,false,false,false,false,false,false,false}
+            loadOnceArray = {false,false,false,false,false,false,false,false,false,false,false,false}
+            loadOrderArray = {0,0,0,0,0,0,0,0,0,0,0,0}
+            loadFunctionArray = {
+                loadOrderOfMatchSceneUI,
+                loadOrderOfMatchSceneStage,
+                nil,nil,nil,nil,nil,nil,nil,nil,nil,nil}
+            OrderSizeArray = {2,1,0,0,0,0,0,0,0,0,0,0}
+            assetDataArray = {nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil}
+            threadAmount = 2
+
         end
     }
     O1CharChangeSwtich = {

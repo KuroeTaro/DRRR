@@ -1,0 +1,69 @@
+curren_update_block ={
+
+	next_scene_obj = scene_obj:run(input)
+	if next_scene_obj ~= nil:
+		 scene_obj = next_scene_obj
+	end
+
+}
+
+
+scene_obj = {
+
+	init:
+		sub_scene_obj_id : number = 0			-- no run function
+		sub_scene_obj_array: table of sub_scene_obj 	-- run function return number to current_sub_scene_obj_id
+		next_scene_obj = nil
+
+	run = {
+		self.current_sub_scene_obj_id, self.next_scene_obj = sub_scene_obj_array[sub_scene_obj_id]:run(input)
+		return next_scene_obj
+	}
+
+	-- return next scene_obj
+
+}
+
+
+sub_scene_obj = {
+	
+	init:
+		state_machine_obj_array: table		-- run function retun value to update scene_public_values
+		scene_public_values_array: table	-- run function update draw_offer_obj
+		drawable_obj_array: table			-- no run function
+		draw_sub_scene: function			-- draw drawable_objs in order
+		sub_scene_obj_id
+		next_scene_obj 
+
+	run = {
+		for _, obj in ipairs(self.state_machine_obj_array) do
+			self.scene_public_values, self.sub_scene_obj_id, self.next_scene_obj = 
+				obj:run(
+					self.scene_public_values,self.scene_public_values, 
+					self.sub_scene_obj_id,
+					self.next_scene_obj,
+					input)
+		end
+		for _, value in ipairs(self.scene_public_values_array) do
+			self.drawable_obj_array = value:run(self.drawable_obj_array)
+		end
+		self.draw_sub_scene:run(drawable_obj_array)
+		return self.current_sub_scene_obj_id, self.next_scene_obj
+	}
+	
+}
+
+state_machine = {
+	run = {
+		take 
+			scene_public_values,
+			scene_public_values, 
+			sub_scene_obj_id,
+			next_scene_obj,
+			input
+		 and return 
+			scene_public_values,
+			sub_scene_obj_id, 
+			next_scene_obj
+	}
+}

@@ -73,6 +73,27 @@ function pointLinerAnimator(object,animation,outerEffect)
     end
 end 
 
+-- function pointLinerAnimator(timer,value,animtion)
+    -- local res_timer = timer
+    -- local res_value = value
+    -- local delta = 0
+    -- if timer >= animation["length"] and animation["loopType"] == "loop" then
+    --     res_timer = 0
+    -- end
+    -- if animation[res_timer] ~= nil then 
+    --     local nextTime = animation[res_timer][2]
+    --     local nextValue = animation[nextTime][1]
+    --     local currentTime = res_timer
+    --     local currentValue = animation[currentTime][1]
+    --     delta = (nextValue - currentValue)/(nextTime - currentTime)
+    -- end
+    -- if res_timer < animation["length"] then
+    --     res_value =  value + delta
+	-- 	res_timer = res_timer + 1
+    -- end
+    -- return res_timer,res_value
+-- end
+
 function initFrameAnimationWith(object,animation)
     object["FA"] = animation 
     object["FCT"] = 0 
