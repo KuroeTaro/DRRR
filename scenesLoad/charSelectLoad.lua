@@ -1062,7 +1062,7 @@ function loadSubSwitchesOfCharSelectScene()
                 nil
             }
             threadOnceArray = {false,false,false,false,false,false,false,false,false,false,false,false}
-            loadOnceArray = {false,false,false,false,false,false,false,false,false,false,false,false}
+            load_once_array = {false,false,false,false,false,false,false,false,false,false,false,false}
             loadOrderArray = {0,0,0,0,0,0,0,0,0,0,0,0}
             loadFunctionArray = {
                 loadOrderOfMatchSceneUI,

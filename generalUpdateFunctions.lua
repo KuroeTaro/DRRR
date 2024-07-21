@@ -61,7 +61,7 @@ function loadAssetFunctionArray()
             loadOrderArray[i] = loadOrderArray[i] + 1
             if loadOrderArray[i] > OrderSizeArray[i] then 
                 loadOrderArray[i] = 0
-                loadOnceArray[i] = true
+                load_once_array[i] = true
             end
         end
         i = i + 1

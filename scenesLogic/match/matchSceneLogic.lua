@@ -16,8 +16,8 @@ function matchSelectSceneLoadAnim()
     frameAnimator(insMark)
     localCounter(100)
     if counter > 100 
-    and loadOnceArray[1] == true 
-    and loadOnceArray[2] == true then 
+    and load_once_array[1] == true 
+    and load_once_array[2] == true then 
         love.audio.stop()
         love.audio.play(endLoadingSource)
         counter = nil
@@ -52,7 +52,7 @@ function matchSelectSceneLoadFlashOutAnim()
         -- UI 待机和移动 收击 拳脚 必杀 超必杀
         threadArray = {nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil}
         threadOnceArray = {false,false,false,false,false,false,false,false,false,false,false,false}
-        loadOnceArray = {false,false,false,false,false,false,false,false,false,false,false,false}
+        load_once_array = {false,false,false,false,false,false,false,false,false,false,false,false}
         loadOrderArray = {0,0,0,0,0,0,0,0,0,0,0,0}
         loadFunctionArray = {nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil}
         OrderSizeArray = {0,0,0,0,0,0,0,0,0,0,0,0}
