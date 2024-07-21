@@ -267,24 +267,24 @@ function loadObjectOfCharSelectScene()
 end
 function loadAnimOfCharSelectScene()
 
-    solidFlashInLinerAnim1 = {}
-    solidFlashInLinerAnim1[0] = {0,0,0,-0.3,0}
-    solidFlashInLinerAnim1[1] = {0,0,0,-0.2,0}
-    solidFlashInLinerAnim1[2] = {0,0,0,-0.1,0}
-    solidFlashInLinerAnim1[3] = {0,0,0,-0.1,0}
-    solidFlashInLinerAnim1[4] = {0,0,0,-0.07,0}
-    solidFlashInLinerAnim1[5] = {0,0,0,-0.05,0}
-    solidFlashInLinerAnim1[6] = {0,0,0,-0.05,0}
-    solidFlashInLinerAnim1[7] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim1[8] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim1[9] = {0,0,0,-0.03,0}
-    solidFlashInLinerAnim1[10] = {0,0,0,-0.02,0}
-    solidFlashInLinerAnim1[11] = {0,0,0,-0.01,0}
-    solidFlashInLinerAnim1[12] = {0,0,0,-0,005,0}
-    solidFlashInLinerAnim1[13] = {0,0,0,-0.003,0}
-    solidFlashInLinerAnim1[14] = {0,0,0,-0.002,0}
-    solidFlashInLinerAnim1["length"] = 14
-    solidFlashInLinerAnim1["loopType"] = "const"
+    solid_flash_in_liner_anim_1 = {}
+    solid_flash_in_liner_anim_1[0] = {0,0,0,-0.3,0}
+    solid_flash_in_liner_anim_1[1] = {0,0,0,-0.2,0}
+    solid_flash_in_liner_anim_1[2] = {0,0,0,-0.1,0}
+    solid_flash_in_liner_anim_1[3] = {0,0,0,-0.1,0}
+    solid_flash_in_liner_anim_1[4] = {0,0,0,-0.07,0}
+    solid_flash_in_liner_anim_1[5] = {0,0,0,-0.05,0}
+    solid_flash_in_liner_anim_1[6] = {0,0,0,-0.05,0}
+    solid_flash_in_liner_anim_1[7] = {0,0,0,-0.03,0}
+    solid_flash_in_liner_anim_1[8] = {0,0,0,-0.03,0}
+    solid_flash_in_liner_anim_1[9] = {0,0,0,-0.03,0}
+    solid_flash_in_liner_anim_1[10] = {0,0,0,-0.02,0}
+    solid_flash_in_liner_anim_1[11] = {0,0,0,-0.01,0}
+    solid_flash_in_liner_anim_1[12] = {0,0,0,-0,005,0}
+    solid_flash_in_liner_anim_1[13] = {0,0,0,-0.003,0}
+    solid_flash_in_liner_anim_1[14] = {0,0,0,-0.002,0}
+    solid_flash_in_liner_anim_1["length"] = 14
+    solid_flash_in_liner_anim_1["loopType"] = "const"
 
     solidFlashInLinerAnim2 = {}
     solidFlashInLinerAnim2[0] = {0,0,0,-0.01,0}
@@ -1289,7 +1289,7 @@ function unloadObjectOfCharSelectScene()
     controlSelectBar2 = nil
 end
 function unloadAnimOfCharSelectScene()
-    solidFlashInLinerAnim1 = nil
+    solid_flash_in_liner_anim_1 = nil
     solidFlashInLinerAnim2 = nil
     solidFlashInLinerAnim3 = nil
     solidFlashOutLinerAnim = nil

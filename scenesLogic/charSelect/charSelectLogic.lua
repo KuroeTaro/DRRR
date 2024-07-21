@@ -56,7 +56,7 @@ function charSelectSceneLoadFlashOutAnim()
 
         sceneCounter = -43
 
-        initLinerAnimationWithOut(solidColor,solidFlashInLinerAnim1)
+        initLinerAnimationWithOut(solidColor,solid_flash_in_liner_anim_1)
         initFrameAnimationWithOut(firstRing,firstRingFlashInFrameAnim)
         initFrameAnimationWithOut(movieCover,movieCoverFrameAnim)
 
